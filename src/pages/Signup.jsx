@@ -26,7 +26,7 @@ const FormContainer = styled('div')({
     gap: '16px',
 });
 
-const SignInPage = () => {
+const SignUpPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission logic here
@@ -37,15 +37,20 @@ const SignInPage = () => {
             <CardContainer>
                 <FormContainer>
                     <form onSubmit={handleSubmit}>
+                        <Input placeholder="Name" variant="soft" />
+                        <div style={{ marginBottom: '16px' }}></div>
                         <Input placeholder="Email" variant="soft" />
                         <div style={{ marginBottom: '16px' }}></div>
-                        <Input placeholder="Password" variant="soft" type="password" />
+                        <Input placeholder="Mobile Number" variant="soft" />
+                        <div style={{ marginBottom: '16px' }}></div>
+                        <Input placeholder="Gatepass Number" variant="soft" />
+                        <div style={{ marginBottom: '16px' }}></div>
+                        <Input placeholder="Vendor Name" variant="soft" type="dropdown" />
                         <div style={{ marginBottom: '20px' }}></div>
                         <Button variant="solid" type="submit" sx={{ width: '100%' }}>
-                            Sign In
+                            Sign Up
                         </Button>
-                        <div style={{ margin: '16px 0' }}></div>
-                        <Link to="/signup">Don't have an account? Sign Up</Link>
+                        <Link to="/signin">Already have an account? Sign In</Link>
                     </form>
                 </FormContainer>
             </CardContainer>
@@ -53,4 +58,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default SignUpPage;
