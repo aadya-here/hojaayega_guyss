@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import { styled } from '@mui/system';
 import Card from '@mui/joy/Card';
 import { Link } from 'react-router-dom';
+import supabase from '../supabase'; // Make sure to import your supabase client
 
 const CenteredContainer = styled('div')({
     display: 'flex',
@@ -27,19 +29,39 @@ const FormContainer = styled('div')({
 });
 
 const SignInPage = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission logic here
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+            alert('Error logging in: ' + error.message);
+        } else {
+            navigate('/home');
+        }
     };
 
     return (
         <CenteredContainer>
             <CardContainer>
                 <FormContainer>
-                    <form onSubmit={handleSubmit}>
-                        <Input placeholder="Email" variant="soft" />
+                    <form onSubmit={handleLogin}>
+                        <Input
+                            placeholder="Email"
+                            variant="soft"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <div style={{ marginBottom: '16px' }}></div>
-                        <Input placeholder="Password" variant="soft" type="password" />
+                        <Input
+                            placeholder="Password"
+                            variant="soft"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         <div style={{ marginBottom: '20px' }}></div>
                         <Button variant="solid" type="submit" sx={{ width: '100%' }}>
                             Sign In
