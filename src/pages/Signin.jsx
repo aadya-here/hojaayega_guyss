@@ -39,7 +39,7 @@ const SignInPage = () => {
         if (error) {
             alert('Error logging in: ' + error.message);
         } else {
-            navigate('/home');
+            navigate('/vendor-login');
         }
     };
 
