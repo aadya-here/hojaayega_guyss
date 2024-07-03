@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import { VendorProvider } from './context/vendorContext';
 import VendorLoginPage from './pages/SigninV';
+import { Test } from './pages/Test';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path='/projects' element={<Projects />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path='/vendor-login' element={<VendorLoginPage />} />
+            <Route path='/test' element={<Test />} />
           </Routes>
         </VendorProvider>
       </div>
