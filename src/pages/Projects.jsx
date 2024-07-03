@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useVendor } from '../context/vendorContext';
 import ProjectCard from '../components/ProjectCard';
 import supabase from '../supabase';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import Box from '@mui/joy/Box';
+import Tabs from '@mui/joy/Tabs';
+import TabList from '@mui/joy/TabList';
+import Tab from '@mui/joy/Tab';
 import TabPanel from '@mui/lab/TabPanel';
-import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
-
 
 const ProjectsPage = () => {
     const { vendorId } = useVendor();
@@ -55,9 +55,10 @@ const ProjectsPage = () => {
     return (
         <Box
             sx={{
-                width: '60%',
-                margin: '0 auto',
+                height: '100vh',
                 display: 'flex',
+                // justifyContent: 'center',
+                alignItems: 'center',
                 flexDirection: 'column',
             }}
         >
@@ -65,28 +66,78 @@ const ProjectsPage = () => {
             <p>Vendor ID: {vendorId}</p>
             {vendorName && <p>Vendor Name: {vendorName}</p>}
 
-            <TabContext value={value}>
-                <Tabs value={value} onChange={handleTabChange} aria-label="Project tabs">
-                    <Tab label="Ongoing" value="ongoing" />
-                    <Tab label="Upcoming" value="upcoming" />
-                    <Tab label="Completed" value="completed" />
-                </Tabs>
-                <TabPanel value="ongoing">
-                    {filteredProjects.map(project => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </TabPanel>
-                <TabPanel value="upcoming">
-                    {filteredProjects.map(project => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </TabPanel>
-                <TabPanel value="completed">
-                    {filteredProjects.map(project => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </TabPanel>
-            </TabContext>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    width: '100%',
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        width: '80%',
+                        maxWidth: '600px',
+                        bgcolor: 'background.paper',
+                        boxShadow: 1,
+                        borderRadius: 2,
+                        p: 2,
+                    }}
+                >
+                    <TabContext value={value}>
+                        <Tabs
+                            aria-label="Soft tabs"
+                            value={value}
+                            onChange={handleTabChange}
+                        >
+                            <TabList variant="soft">
+                                <Tab
+                                    variant={value === 'ongoing' ? 'solid' : 'plain'}
+                                    color={value === 'ongoing' ? 'primary' : 'neutral'}
+                                    value="ongoing"
+                                >
+                                    Ongoing
+                                </Tab>
+                                <Tab
+                                    variant={value === 'upcoming' ? 'solid' : 'plain'}
+                                    color={value === 'upcoming' ? 'primary' : 'neutral'}
+                                    value="upcoming"
+                                >
+                                    Upcoming
+                                </Tab>
+                                <Tab
+                                    variant={value === 'completed' ? 'solid' : 'plain'}
+                                    color={value === 'completed' ? 'primary' : 'neutral'}
+                                    value="completed"
+                                >
+                                    Completed
+                                </Tab>
+                            </TabList>
+                        </Tabs>
+
+                        <TabPanel value="ongoing">
+                            {filteredProjects.map(project => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </TabPanel>
+                        <TabPanel value="upcoming">
+                            {filteredProjects.map(project => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </TabPanel>
+                        <TabPanel value="completed">
+                            {filteredProjects.map(project => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </TabPanel>
+                    </TabContext>
+                </Box>
+            </Box>
         </Box>
     );
 };
