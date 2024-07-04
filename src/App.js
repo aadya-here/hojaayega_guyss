@@ -32,6 +32,7 @@ const App = () => {
 
 
             <Route path="/forms" element={<Forms />} />
+            <Route path="/forms-list" element={<FormsList />} />
             {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
                 <Route path="micro-concrete" element={<MicroConcreteForm />} />
