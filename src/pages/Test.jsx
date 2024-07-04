@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { InputField } from '../components/InputField';
+import InputField from '../components/InputField';
 import locationIcon from "../assets/location.png";
 import CheckListItem from '../components/CheckListItem';
 

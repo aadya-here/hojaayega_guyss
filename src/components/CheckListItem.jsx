@@ -10,7 +10,7 @@ const CheckListItem = ({ label, value, setValue }) => {
 
     return (
         <div className="w-full flex justify-center">
-            <div className="my-3 p-3 bg-white shadow-md rounded-md flex md:flex-row items-center md:items-start w-full sm:w-4/5 md:w-3/5 lg:w-2/5" style={{ maxWidth: '600px' }}>
+            <div className="my-3 p-3 bg-white shadow-md rounded-md flex md:flex-row items-center md:items-start w-full sm:w-full md:w-4/5 lg:w-full" style={{ maxWidth: '600px' }}>
                 <div className="flex w-full md:w-7/12 pr-4 md:mr-4 mb-4 md:mb-0">
                     <Typography variant="body1" className="text-gray-700">
                         {label}

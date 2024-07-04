@@ -5,7 +5,7 @@ const SubmitButton = ({ handleSubmit, text }) => {
         <div className="flex justify-center mt-4 mb-8">
             <button
                 onClick={handleSubmit}
-                className="bg-blue-950 text-white py-2 px-4 rounded w-full sm:w-4/5 md:w-3/5 lg:w-2/5"
+                className="bg-blue-950 text-white py-2 px-4 rounded w-full sm:w-full md:w-4/5 lg:w-full"
                 style={{ maxWidth: '600px' }}
             >
                 {text}

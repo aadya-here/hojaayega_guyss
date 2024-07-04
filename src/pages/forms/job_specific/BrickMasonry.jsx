@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import supabase from '../../../supabase'; // Make sure to set up Supabase client
 
-import { InputField } from '../../../components/InputField';
+import InputField from '../../../components/InputField';
 import CheckListItem from '../../../components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
 import SubmitButton from '../../../components/PrimaryButton';
+import { useVendor } from '../../../context/vendorContext';
+import Title from '../../../components/Title';
+// import ProjectDropdown from '../../../components/ProjectDropdown';
 
 const BrickMasonryQCForm = () => {
+
+    const { vendorId } = useVendor();
+
     const [projectID, setProjectID] = useState('');
     const [structure, setStructure] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -84,12 +90,11 @@ const BrickMasonryQCForm = () => {
 
     return (
         <div className='bg-blue-50 pb-20 p-5'>
-            <div className='w-full py-5'>
-                <p className='text-center sm:text-3xl text-2xl font-bold text-gray-800 mt-6 mb-5'>Brick Masonry QC Checklist</p>
-            </div>
+            <Title text="Brick Masonry QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
                 <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
+                {/* <ProjectDropdown vendorId={vendorId} /> */}
                 <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
                 <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
                 <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />

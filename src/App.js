@@ -12,6 +12,7 @@ import MicroConcreteForm from './pages/forms/job_specific/MicroConcrete';
 import MortarPlasteringQCForm from './pages/forms/job_specific/Mortar';
 import PaintingQCForm from './pages/forms/job_specific/Painting';
 import PlasteringQCForm from './pages/forms/job_specific/Plastering';
+import Forms from './pages/Forms';
 
 const App = () => {
   return (
@@ -25,15 +26,17 @@ const App = () => {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/vendor-login" element={<VendorLoginPage />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/brick-masonry" element={<BrickMasonryQCForm />} />
-            <Route path="/micro-concrete" element={<MicroConcreteForm />} />
-            <Route path='/mortar' element={<MortarPlasteringQCForm />} />
-            <Route path='/painting' element={<PaintingQCForm />} />
-            <Route path='/plastering' element={<PlasteringQCForm />} />
 
 
-
-
+            <Route path="/forms" element={<Forms />} />
+            {/* <Route path="job-specific" element={<Forms />}>
+                <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
+                <Route path="micro-concrete" element={<MicroConcreteForm />} />
+                <Route path="mortar" element={<MortarPlasteringQCForm />} />
+                <Route path="painting" element={<PaintingQCForm />} />
+                <Route path="plastering" element={<PlasteringQCForm />} />
+              </Route>
+            </Route> */}
 
           </Routes>
         </VendorProvider>
