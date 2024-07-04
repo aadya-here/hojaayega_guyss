@@ -13,6 +13,7 @@ import MortarPlasteringQCForm from './pages/forms/job_specific/Mortar';
 import PaintingQCForm from './pages/forms/job_specific/Painting';
 import PlasteringQCForm from './pages/forms/job_specific/Plastering';
 import Forms from './pages/Forms';
+import FormsList from './pages/FormsList';
 
 const App = () => {
   return (
@@ -29,6 +30,8 @@ const App = () => {
 
 
             <Route path="/forms" element={<Forms />} />
+            <Route path="/forms-list" element={<FormsList />} />
+
             {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
                 <Route path="micro-concrete" element={<MicroConcreteForm />} />

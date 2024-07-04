@@ -1,4 +1,5 @@
 import React from 'react';
+import Divider from '@mui/joy/Divider';
 
 const Title = ({ text }) => {
     return (
@@ -6,6 +7,7 @@ const Title = ({ text }) => {
             <p className='text-center sm:text-3xl text-2xl font-bold text-gray-800 mt-6 mb-5'>
                 {text}
             </p>
+            <Divider sx={{ width: '50%', margin: 'auto' }} />
         </div>
     );
 };
