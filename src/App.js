@@ -13,23 +13,25 @@ import MortarPlasteringQCForm from './pages/forms/job_specific/Mortar';
 import PaintingQCForm from './pages/forms/job_specific/Painting';
 import PlasteringQCForm from './pages/forms/job_specific/Plastering';
 import Forms from './pages/Forms';
+import BottomNavbar from './components/BottomNavbar';
 
 const App = () => {
   return (
-    <Router>
-      <div>
-        <VendorProvider initialVendorId={null}>
-          <Routes>
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/vendor-login" element={<VendorLoginPage />} />
-            <Route path="/test" element={<Test />} />
+    <>
+      <Router>
+        <div>
+          <VendorProvider initialVendorId={null}>
+            <Routes>
+              <Route path="/signin" element={<SignInPage />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/vendor-login" element={<VendorLoginPage />} />
+              <Route path="/test" element={<Test />} />
 
 
-            <Route path="/forms" element={<Forms />} />
-            {/* <Route path="job-specific" element={<Forms />}>
+              <Route path="/forms" element={<Forms />} />
+              {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
                 <Route path="micro-concrete" element={<MicroConcreteForm />} />
                 <Route path="mortar" element={<MortarPlasteringQCForm />} />
@@ -38,10 +40,12 @@ const App = () => {
               </Route>
             </Route> */}
 
-          </Routes>
-        </VendorProvider>
-      </div>
-    </Router>
+            </Routes>
+          </VendorProvider>
+        </div>
+        <BottomNavbar />
+      </Router>
+    </>
   );
 };
 
