@@ -6,6 +6,8 @@ import CheckListItem from '../../../components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
 import SubmitButton from '../../../components/PrimaryButton';
 import Title from '../../../components/Title';
+import { useVendor } from '../../../context/vendorContext';
+import { addFormLog } from '../../../helpers/addFormLog';
 
 
 
@@ -33,6 +35,11 @@ const PaintingQCForm = () => {
 
     const [supervisorName, setSupervisorName] = useState('');
     const [supervisorPno, setSupervisorPno] = useState(null);
+
+    const form_num = 2;
+    const { vendorId } = useVendor();
+
+
 
     const handleSubmit = async () => {
         try {
@@ -64,16 +71,31 @@ const PaintingQCForm = () => {
                         supervisor_name: supervisorName,
                         supervisor_pno: supervisorPno,
                     }
-                ]);
+                ]).select();
+
             if (error) {
-                console.error('Error submitting checklist:', error.message);
                 alert('Error', error.message);
             } else {
-                alert('Success', 'Painting QC checklist submitted successfully.');
+
+                alert('Painting QC checklist submitted successfully.');
+                // console.log('added log:', data[0].log_id);
+                return (data[0].log_id);
+
             }
         } catch (error) {
-            console.error('Error submitting checklist:', error.message);
-            alert('Error', 'An unexpected error occurred while submitting the checklist.');
+            console.error('Error submitting checklist:', error);
+            alert('Error', error.message);
+        }
+    };
+
+    const handleFormLog = async () => {
+        try {
+            const formID = await handleSubmit();
+            await addFormLog(formID, projectID, vendorId, form_num);
+            console.log('form:', formID);
+        } catch (error) {
+            console.error('Error creating form log:', error);
+            alert('Error', error.message);
         }
     };
 
@@ -109,7 +131,7 @@ const PaintingQCForm = () => {
 
             <CheckListItem label="Removal of scaffolds and cleaning" value={removalScaffoldsCleaning} setValue={setRemovalScaffoldsCleaning} />
 
-            <SubmitButton handleSubmit={handleSubmit} text="Submit" />
+            <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );
 };

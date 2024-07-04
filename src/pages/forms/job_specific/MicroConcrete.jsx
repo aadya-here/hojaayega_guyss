@@ -6,6 +6,8 @@ import CheckListItem from '../../../components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
 import SubmitButton from '../../../components/PrimaryButton';
 import Title from '../../../components/Title';
+import { addFormLog } from '../../../helpers/addFormLog';
+import { useVendor } from '../../../context/vendorContext';
 
 
 
@@ -37,6 +39,9 @@ const MicroConcreteForm = () => {
     const [supervisor_pno, setSupervisorPno] = useState(null);
 
     const [thickness, setThickness] = useState('');
+    const form_num = 8;
+
+    const { vendorId } = useVendor();
 
     const handleSubmit = async () => {
         try {
@@ -50,7 +55,7 @@ const MicroConcreteForm = () => {
                         quantity: parseInt(quantity),
                         ref_drg_no: refDrgNo,
                         location: location,
-                        form_num: 8,
+                        form_num: form_num,
                         description: description,
                         proper_mixing: properMixing,
                         cleaning_surface: cleaningSurface,
@@ -71,18 +76,33 @@ const MicroConcreteForm = () => {
                         supervisor_name: supervisor_name,
                         supervisor_pno: supervisor_pno
                     }
-                ]);
+                ]).select();
             if (error) {
                 console.error('Error submitting checklist:', error.message);
                 alert('Error', error.message);
             } else {
-                alert('Success', 'Micro Concrete checklist submitted successfully.');
+                alert('Micro Concrete checklist submitted successfully.');
+                console.log(data[0].log_id);
+                return (data[0].log_id);
             }
         } catch (error) {
             console.error('Error submitting checklist:', error.message);
-            alert('Error', 'An unexpected error occurred while submitting the checklist.');
+            alert(error.message);
         }
     };
+
+    const handleFormLog = async () => {
+        try {
+            const formID = await handleSubmit();
+            await addFormLog(formID, projectID, vendorId, form_num);
+            alert('Success')
+            console.log('form:', formID);
+        } catch (error) {
+            console.error('Error creating form log:', error);
+            alert('Error', error.message);
+        }
+    };
+
 
     return (
         <div className='bg-blue-50 pb-20 p-5'>
@@ -116,7 +136,7 @@ const MicroConcreteForm = () => {
             <CheckListItem label="Sealing of openings" value={sealingOpenings} setValue={setSealingOpenings} />
             <CheckListItem label="Curing of micro concrete" value={curing} setValue={setCuring} />
 
-            <SubmitButton handleSubmit={handleSubmit} text="Submit" />
+            <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );
 };

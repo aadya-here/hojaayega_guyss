@@ -6,6 +6,8 @@ import CheckListItem from '../../../components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
 import SubmitButton from '../../../components/PrimaryButton';
 import Title from '../../../components/Title';
+import { useVendor } from '../../../context/vendorContext';
+import { addFormLog } from '../../../helpers/addFormLog';
 
 
 const PlasteringQCForm = () => {
@@ -38,6 +40,8 @@ const PlasteringQCForm = () => {
 
     const [supervisorName, setSupervisorName] = useState('');
     const [supervisorPno, setSupervisorPno] = useState(null);
+    const form_num = 5;
+    const { vendorId } = useVendor();
 
     const handleSubmit = async () => {
         try {
@@ -51,7 +55,7 @@ const PlasteringQCForm = () => {
                         quantity: parseInt(quantity),
                         ref_drg_no: refDrgNo,
                         location: location,
-                        form_num: 5,
+                        form_num: form_num,
                         description: description,
                         proper_mixing_of_mortar: properMixingOfMortar,
                         mortar_mix_proportion: mortarMixProportion,
@@ -74,18 +78,33 @@ const PlasteringQCForm = () => {
                         supervisor_name: supervisorName,
                         supervisor_pno: supervisorPno,
                     }
-                ]);
+                ]).select();
+
             if (error) {
                 alert('Error', error.message);
             } else {
-                alert('Success', 'Plastering QC checklist submitted successfully.');
+
+                alert('Plastering QC checklist submitted successfully.');
+                console.log('added log:', data[0].log_id);
+                return (data[0].log_id);
+
             }
         } catch (error) {
             console.error('Error submitting checklist:', error);
-            alert('Error', 'An unexpected error occurred while submitting the checklist.');
+            alert('Error', error.message);
         }
     };
 
+    const handleFormLog = async () => {
+        try {
+            const formID = await handleSubmit();
+            await addFormLog(formID, projectID, vendorId, form_num);
+            console.log('form:', formID);
+        } catch (error) {
+            console.error('Error creating form log:', error);
+            alert('Error', error.message);
+        }
+    };
     return (
         <div className='bg-blue-50 pb-20 p-5'>
             <Title text="Plastering QC Checklist" />
@@ -127,7 +146,7 @@ const PlasteringQCForm = () => {
 
 
 
-            <SubmitButton handleSubmit={handleSubmit} text="Submit" />
+            <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );
 };

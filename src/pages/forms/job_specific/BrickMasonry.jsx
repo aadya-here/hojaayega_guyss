@@ -7,6 +7,9 @@ import locationIcon from '../../../assets/location.png'; // Ensure you have thes
 import SubmitButton from '../../../components/PrimaryButton';
 import { useVendor } from '../../../context/vendorContext';
 import Title from '../../../components/Title';
+
+import { addFormLog } from '../../../helpers/addFormLog';
+import ProjectSelectionMenu from '../../../components/ProjectSelection';
 // import ProjectDropdown from '../../../components/ProjectDropdown';
 
 const BrickMasonryQCForm = () => {
@@ -36,10 +39,12 @@ const BrickMasonryQCForm = () => {
     const [removalOfDebris, setRemovalOfDebris] = useState('');
     const [noOfCoursesRestricted, setNoOfCoursesRestricted] = useState('');
     const [mixProportion, setMixProportion] = useState('');
+    const [supervisor_name, setSupervisorName] = useState('');
+    const [supervisor_pno, setSupervisorPno] = useState(null);
+    const [selectedProject, setSelectedProject] = useState('');
 
-    const [contractor, setContractor] = useState('');
-    const [tslSiteEngg, setTslSiteEngg] = useState('');
-    const [tslQA, setTslQA] = useState('');
+
+    const form_num = 4;
 
     const handleSubmit = async () => {
         try {
@@ -48,13 +53,13 @@ const BrickMasonryQCForm = () => {
                 .insert([
                     {
                         project_id: parseInt(projectID),
-                        structure,
+                        structure: structure,
                         date: new Date(),
                         quantity: parseInt(quantity),
                         ref_drg_no: refDrgNo,
-                        location,
-                        checklist_id: 4,
-                        description,
+                        location: location,
+                        form_num: form_num,
+                        description: description,
                         availability_of_bricks: availabilityOfBricks,
                         cleaning_work_area: cleaningWorkArea,
                         alignment_location_masonry: alignmentLocationMasonry,
@@ -70,22 +75,44 @@ const BrickMasonryQCForm = () => {
                         curing_old_masonry: curingOldMasonry,
                         removal_of_debris: removalOfDebris,
                         no_of_courses_restricted: noOfCoursesRestricted,
-                        contractor,
-                        tsl_site_engg: tslSiteEngg,
-                        tsl_qa: tslQA,
-                        mix_proportion: mixProportion,
+                        supervisor_name: supervisor_name,
+                        supervisor_pno: supervisor_pno
                     }
-                ]);
+                ]).select();
 
             if (error) {
                 alert('Error', error.message);
             } else {
-                alert('Success', 'Brick Masonry QC checklist submitted successfully.');
+
+                alert('Brick Masonry QC checklist submitted successfully.');
+                // console.log('added log:', data[0].log_id);
+                return (data[0].log_id);
+
             }
         } catch (error) {
             console.error('Error submitting checklist:', error);
             alert('Error', error.message);
         }
+    };
+
+    const handleFormLog = async () => {
+        try {
+            const formID = await handleSubmit();
+            await addFormLog(formID, projectID, vendorId, form_num);
+            console.log('form:', formID);
+        } catch (error) {
+            console.error('Error creating form log:', error);
+            alert('Error', error.message);
+        }
+    };
+
+
+    const [selectedProjectId, setSelectedProjectId] = useState('');
+
+    const handleProjectChange = (projectId) => {
+        setSelectedProjectId(projectId);
+        console.log('selected proj', selectedProject)
+        // You can perform any other actions related to project change here
     };
 
     return (
@@ -94,15 +121,15 @@ const BrickMasonryQCForm = () => {
 
             <div className='items-center justify-center flex flex-col'>
                 <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
-                {/* <ProjectDropdown vendorId={vendorId} /> */}
+                {/* <ProjectSelectionMenu handleProjectChange={handleProjectChange} /> */}
                 <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
                 <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
                 <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
                 <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
                 <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Contractor" handleInputChange={setContractor} />
-                <InputField icon={locationIcon} placeholder="TSL Site Engg" handleInputChange={setTslSiteEngg} />
-                <InputField icon={locationIcon} placeholder="TSL QA" handleInputChange={setTslQA} />
+                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
+                <InputField icon={locationIcon} placeholder="Supervisor GatePass No." handleInputChange={setSupervisorPno} />
+
             </div>
 
             <CheckListItem label="Availability of bricks as per daily requirements" value={availabilityOfBricks} setValue={setAvailabilityOfBricks} />
@@ -122,7 +149,7 @@ const BrickMasonryQCForm = () => {
             <CheckListItem label="Number of courses restricted per day" value={noOfCoursesRestricted} setValue={setNoOfCoursesRestricted} />
             <CheckListItem label="Mix proportion" value={mixProportion} setValue={setMixProportion} />
 
-            <SubmitButton handleSubmit={handleSubmit} text="Submit" />
+            <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );
 };

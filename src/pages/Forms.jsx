@@ -11,8 +11,10 @@ import PlasteringQCForm from './forms/job_specific/Plastering';
 import SecondaryButton from '../components/SecondaryButton'; // Ensure the correct path
 import Title from '../components/Title';
 
-function App() {
+const Forms = () => {
     const [activeForm, setActiveForm] = useState(null);
+
+
 
     const renderForm = () => {
         switch (activeForm) {
@@ -27,12 +29,14 @@ function App() {
             case 'Plastering':
                 return <PlasteringQCForm />;
             default:
-                return <div>Select a checklist item to view the form.</div>;
+                return <div className="font-semibold text-center m-10">
+                    Select a checklist item to view the form.
+                </div>;
         }
     };
 
     return (
-        <div className='bg-blue-50 pb-20 p-5'>
+        <div className='bg-blue-50 pb-20 p-5 min-h-screen'>
             <Title text="Quality & Job Forms" />
             <div className="px-4 flex space-x-4 mx-auto sm:w-4/5 md:w-3/5 lg:w-3/5">
                 <AccordionGroup className=" w-full max-w-full mb-5 flex">
@@ -60,11 +64,11 @@ function App() {
                     </Accordion>
                 </AccordionGroup>
             </div>
-            <div className="mx-0 p-0" style={{}}>
+            <div className="mx-0 p-0 w-full" style={{}}>
                 {renderForm()}
             </div>
         </div>
     );
 }
 
-export default App;
+export default Forms;

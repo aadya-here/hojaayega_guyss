@@ -6,6 +6,8 @@ import CheckListItem from '../../../components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
 import SubmitButton from '../../../components/PrimaryButton';
 import Title from '../../../components/Title';
+import { addFormLog } from '../../../helpers/addFormLog';
+import { useVendor } from '../../../context/vendorContext';
 
 
 
@@ -35,6 +37,10 @@ const MortarPlasteringQCForm = () => {
 
     const [supervisorName, setSupervisorName] = useState('');
     const [supervisorPno, setSupervisorPno] = useState(null);
+    const form_num = 3;
+
+    const { vendorId } = useVendor();
+
     const handleSubmit = async () => {
         try {
             const { data, error } = await supabase
@@ -47,7 +53,7 @@ const MortarPlasteringQCForm = () => {
                         quantity: parseInt(quantity),
                         ref_drg_no: refDrgNo,
                         location: location,
-                        form_num: 3,
+                        form_num: form_num,
                         description: description,
                         proper_mixing_mortar: properMixingMortar,
                         cleaning_surface: cleaningSurface,
@@ -68,16 +74,31 @@ const MortarPlasteringQCForm = () => {
                         supervisor_pno: supervisorPno,
 
                     }
-                ]);
+                ]).select();
+
             if (error) {
-                console.error('Error submitting checklist:', error.message);
                 alert('Error', error.message);
             } else {
-                alert('Success', 'Mortar Plastering QC checklist submitted successfully.');
+
+                alert('Mortar and Plastering QC checklist submitted successfully.');
+                console.log('added log:', data[0].log_id);
+                return (data[0].log_id);
+
             }
         } catch (error) {
-            console.error('Error submitting checklist:', error.message);
-            alert('Error', 'An unexpected error occurred while submitting the checklist.');
+            console.error('Error submitting checklist:', error);
+            alert('Error', error.message);
+        }
+    };
+
+    const handleFormLog = async () => {
+        try {
+            const formID = await handleSubmit();
+            await addFormLog(formID, projectID, vendorId, form_num);
+            console.log('form:', formID);
+        } catch (error) {
+            console.error('Error creating form log:', error);
+            alert('Error', error.message);
         }
     };
 
@@ -113,7 +134,7 @@ const MortarPlasteringQCForm = () => {
             <CheckListItem label="Removal of dead mortar and debris" value={removalDeadMortarDebris} setValue={setRemovalDeadMortarDebris} />
             <CheckListItem label="Curing for specified duration" value={curingSpecifiedDuration} setValue={setCuringSpecifiedDuration} />
 
-            <SubmitButton handleSubmit={handleSubmit} text="Submit" />
+            <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );
 };
