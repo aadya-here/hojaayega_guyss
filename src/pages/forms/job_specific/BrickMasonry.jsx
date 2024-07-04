@@ -109,45 +109,168 @@ const BrickMasonryQCForm = () => {
 
     const [selectedProjectId, setSelectedProjectId] = useState('');
 
+
     const handleProjectChange = (projectId) => {
         setSelectedProjectId(projectId);
         console.log('selected proj', selectedProject)
         // You can perform any other actions related to project change here
     };
 
+    const checkListItems = [
+        {
+            label: 'Availability of bricks as per daily requirements',
+            value: availabilityOfBricks,
+            setValue: setAvailabilityOfBricks,
+        },
+        {
+            label: 'Cleaning of work area',
+            value: cleaningWorkArea,
+            setValue: setCleaningWorkArea,
+        },
+        {
+            label: 'Alignment and location of masonry',
+            value: alignmentLocationMasonry,
+            setValue: setAlignmentLocationMasonry,
+        },
+        {
+            label: 'Suitability and safety of scaffolding',
+            value: suitabilitySafetyScaffolding,
+            setValue: setSuitabilitySafetyScaffolding,
+        },
+        {
+            label: 'Wetting of bricks before placing',
+            value: wettingBricksBeforePlacing,
+            setValue: setWettingBricksBeforePlacing,
+        },
+        {
+            label: 'Mortar mix proportion and joint thickness',
+            value: mortarMixProportionJointThickness,
+            setValue: setMortarMixProportionJointThickness,
+        },
+        {
+            label: 'Bricks laid with frogs up',
+            value: bricksLaidWithFrogsUp,
+            setValue: setBricksLaidWithFrogsUp,
+        },
+        {
+            label: 'Dimensions, plumb levels, and angles',
+            value: dimensionsPlumbLevelsAngles,
+            setValue: setDimensionsPlumbLevelsAngles,
+        },
+        {
+            label: 'Bond between old and new masonry',
+            value: bondBetweenOldNewMasonry,
+            setValue: setBondBetweenOldNewMasonry,
+        },
+        {
+            label: 'Staggering of vertical joints',
+            value: staggeringVerticalJoints,
+            setValue: setStaggeringVerticalJoints,
+        },
+        {
+            label: 'Sizes of openings for doors and windows',
+            value: sizesOpeningsDoorsWindows,
+            setValue: setSizesOpeningsDoorsWindows,
+        },
+        {
+            label: 'Cleaning and raking of joints',
+            value: cleaningRakingJoints,
+            setValue: setCleaningRakingJoints,
+        },
+        {
+            label: 'Curing of old masonry',
+            value: curingOldMasonry,
+            setValue: setCuringOldMasonry,
+        },
+        {
+            label: 'Removal of debris',
+            value: removalOfDebris,
+            setValue: setRemovalOfDebris,
+        },
+        {
+            label: 'Number of courses restricted per day',
+            value: noOfCoursesRestricted,
+            setValue: setNoOfCoursesRestricted,
+        },
+        {
+            label: 'Mix proportion',
+            value: mixProportion,
+            setValue: setMixProportion,
+        },
+    ];
+
+
+    const InputFieldParams = [
+        {
+            icon: locationIcon,
+            placeholder: 'Project ID',
+            handleInputChange: setProjectID,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Structure',
+            handleInputChange: setStructure,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Quantity',
+            handleInputChange: setQuantity,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Ref Drg No.',
+            handleInputChange: setRefDrgNo,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Location',
+            handleInputChange: setLocation,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Description',
+            handleInputChange: setDescription,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Name',
+            handleInputChange: setSupervisorName,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor GatePass No.',
+            handleInputChange: setSupervisorPno,
+        },
+    ];
+
     return (
         <div className='bg-blue-50 pb-20 p-5'>
             <Title text="Brick Masonry QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
                 {/* <ProjectSelectionMenu handleProjectChange={handleProjectChange} /> */}
-                <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
-                <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
-                <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
-                <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
-                <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
-                <InputField icon={locationIcon} placeholder="Supervisor GatePass No." handleInputChange={setSupervisorPno} />
+
+                {InputFieldParams.map((params, index) => (
+                    <InputField
+                        key={index}
+                        icon={params.icon}
+                        placeholder={params.placeholder}
+                        handleInputChange={params.handleInputChange}
+                    />
+                ))}
+
+
+                {checkListItems.map((item, index) => (
+                    <CheckListItem
+                        key={index}
+                        label={item.label}
+                        value={item.value}
+                        setValue={item.setValue}
+                    />
+                ))}
 
             </div>
 
-            <CheckListItem label="Availability of bricks as per daily requirements" value={availabilityOfBricks} setValue={setAvailabilityOfBricks} />
-            <CheckListItem label="Cleaning of work area" value={cleaningWorkArea} setValue={setCleaningWorkArea} />
-            <CheckListItem label="Alignment and location of masonry" value={alignmentLocationMasonry} setValue={setAlignmentLocationMasonry} />
-            <CheckListItem label="Suitability and safety of scaffolding" value={suitabilitySafetyScaffolding} setValue={setSuitabilitySafetyScaffolding} />
-            <CheckListItem label="Wetting of bricks before placing" value={wettingBricksBeforePlacing} setValue={setWettingBricksBeforePlacing} />
-            <CheckListItem label="Mortar mix proportion and joint thickness" value={mortarMixProportionJointThickness} setValue={setMortarMixProportionJointThickness} />
-            <CheckListItem label="Bricks laid with frogs up" value={bricksLaidWithFrogsUp} setValue={setBricksLaidWithFrogsUp} />
-            <CheckListItem label="Dimensions, plumb levels, and angles" value={dimensionsPlumbLevelsAngles} setValue={setDimensionsPlumbLevelsAngles} />
-            <CheckListItem label="Bond between old and new masonry" value={bondBetweenOldNewMasonry} setValue={setBondBetweenOldNewMasonry} />
-            <CheckListItem label="Staggering of vertical joints" value={staggeringVerticalJoints} setValue={setStaggeringVerticalJoints} />
-            <CheckListItem label="Sizes of openings for doors and windows" value={sizesOpeningsDoorsWindows} setValue={setSizesOpeningsDoorsWindows} />
-            <CheckListItem label="Cleaning and raking of joints" value={cleaningRakingJoints} setValue={setCleaningRakingJoints} />
-            <CheckListItem label="Curing of old masonry" value={curingOldMasonry} setValue={setCuringOldMasonry} />
-            <CheckListItem label="Removal of debris" value={removalOfDebris} setValue={setRemovalOfDebris} />
-            <CheckListItem label="Number of courses restricted per day" value={noOfCoursesRestricted} setValue={setNoOfCoursesRestricted} />
-            <CheckListItem label="Mix proportion" value={mixProportion} setValue={setMixProportion} />
 
             <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>

@@ -102,37 +102,155 @@ const MortarPlasteringQCForm = () => {
         }
     };
 
+    const InputFieldParams = [
+        {
+            icon: locationIcon,
+            placeholder: 'Project ID',
+            handleInputChange: setProjectID,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Structure',
+            handleInputChange: setStructure,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Quantity',
+            handleInputChange: setQuantity,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Ref Drg No.',
+            handleInputChange: setRefDrgNo,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Location',
+            handleInputChange: setLocation,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Description',
+            handleInputChange: setDescription,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Name',
+            handleInputChange: setSupervisorName,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor GatePass No.',
+            handleInputChange: setSupervisorPno,
+        },
+    ]
+
+    const checkListItems = [
+        {
+            label: 'Proper mixing of mortar',
+            value: properMixingMortar,
+            setValue: setProperMixingMortar,
+        },
+        {
+            label: 'Cleaning of surface',
+            value: cleaningSurface,
+            setValue: setCleaningSurface,
+        },
+        {
+            label: 'Chipping of surface',
+            value: chippingSurface,
+            setValue: setChippingSurface,
+        },
+        {
+            label: 'Application of anticorrosive paint',
+            value: anticorrosivePaint,
+            setValue: setAnticorrosivePaint,
+        },
+        {
+            label: 'Use of corrosion inhibitor',
+            value: corrosionInhibitor,
+            setValue: setCorrosionInhibitor,
+        },
+        {
+            label: 'Application of bonding agent',
+            value: bondingAgent,
+            setValue: setBondingAgent,
+        },
+        {
+            label: 'Use of fiber mortar',
+            value: fiberMortar,
+            setValue: setFiberMortar,
+        },
+        {
+            label: 'Completion of overhead plaster',
+            value: completionOverheadPlaster,
+            setValue: setCompletionOverheadPlaster,
+        },
+        {
+            label: 'Start work from top downwards',
+            value: startTopWorkDownwards,
+            setValue: setStartTopWorkDownwards,
+        },
+        {
+            label: 'Thickness and number of coats',
+            value: thicknessNumberCoats,
+            setValue: setThicknessNumberCoats,
+        },
+        {
+            label: 'Initial setting time',
+            value: initialSettingTime,
+            setValue: setInitialSettingTime,
+        },
+        {
+            label: 'Architectural features',
+            value: architecturalFeatures,
+            setValue: setArchitecturalFeatures,
+        },
+        {
+            label: 'True level and smoothness',
+            value: trueLevelSmoothness,
+            setValue: setTrueLevelSmoothness,
+        },
+        {
+            label: 'Removal of dead mortar and debris',
+            value: removalDeadMortarDebris,
+            setValue: setRemovalDeadMortarDebris,
+        },
+        {
+            label: 'Curing for specified duration',
+            value: curingSpecifiedDuration,
+            setValue: setCuringSpecifiedDuration,
+        },
+    ];
+
+
     return (
         <div className='bg-blue-50 pb-20 p-5'>
             <Title text="Mortar Plastering QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
-                <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
-                <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
-                <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
-                <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
-                <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
-                <InputField icon={locationIcon} placeholder="Supervisor Pno" handleInputChange={setSupervisorPno} />
+                {InputFieldParams.map((params, index) => (
+                    <InputField
+                        key={index}
+                        icon={params.icon}
+                        placeholder={params.placeholder}
+                        handleInputChange={params.handleInputChange}
+                    />
+                ))}
+
+
+                {checkListItems.map((item, index) => (
+                    <CheckListItem
+                        key={index}
+                        label={item.label}
+                        value={item.value}
+                        setValue={item.setValue}
+                    />
+                ))}
 
             </div>
 
-            <CheckListItem label="Proper mixing of mortar" value={properMixingMortar} setValue={setProperMixingMortar} />
-            <CheckListItem label="Cleaning of surface" value={cleaningSurface} setValue={setCleaningSurface} />
-            <CheckListItem label="Chipping of surface" value={chippingSurface} setValue={setChippingSurface} />
-            <CheckListItem label="Application of anticorrosive paint" value={anticorrosivePaint} setValue={setAnticorrosivePaint} />
-            <CheckListItem label="Use of corrosion inhibitor" value={corrosionInhibitor} setValue={setCorrosionInhibitor} />
-            <CheckListItem label="Application of bonding agent" value={bondingAgent} setValue={setBondingAgent} />
-            <CheckListItem label="Use of fiber mortar" value={fiberMortar} setValue={setFiberMortar} />
-            <CheckListItem label="Completion of overhead plaster" value={completionOverheadPlaster} setValue={setCompletionOverheadPlaster} />
-            <CheckListItem label="Start work from top downwards" value={startTopWorkDownwards} setValue={setStartTopWorkDownwards} />
-            <CheckListItem label="Thickness and number of coats" value={thicknessNumberCoats} setValue={setThicknessNumberCoats} />
-            <CheckListItem label="Initial setting time" value={initialSettingTime} setValue={setInitialSettingTime} />
-            <CheckListItem label="Architectural features" value={architecturalFeatures} setValue={setArchitecturalFeatures} />
-            <CheckListItem label="True level and smoothness" value={trueLevelSmoothness} setValue={setTrueLevelSmoothness} />
-            <CheckListItem label="Removal of dead mortar and debris" value={removalDeadMortarDebris} setValue={setRemovalDeadMortarDebris} />
-            <CheckListItem label="Curing for specified duration" value={curingSpecifiedDuration} setValue={setCuringSpecifiedDuration} />
+
 
             <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>

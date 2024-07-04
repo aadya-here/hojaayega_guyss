@@ -99,39 +99,145 @@ const PaintingQCForm = () => {
         }
     };
 
+    const InputFieldParams = [
+        {
+            icon: locationIcon,
+            placeholder: 'Project ID',
+            handleInputChange: setProjectID,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Structure',
+            handleInputChange: setStructure,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Quantity',
+            handleInputChange: setQuantity,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Ref Drg No.',
+            handleInputChange: setRefDrgNo,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Location',
+            handleInputChange: setLocation,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Description',
+            handleInputChange: setDescription,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Name',
+            handleInputChange: setSupervisorName,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Pno',
+            handleInputChange: setSupervisorPno,
+        },
+    ];
+
+    const checkListItems = [
+        // {
+        //     label: 'Availability of bricks as per daily requirements',
+        //     value: availabilityOfBricks,
+        //     setValue: setAvailabilityOfBricks,
+        // },
+        {
+            label: 'Cleaning of surface',
+            value: cleaningSurface,
+            setValue: setCleaningSurface,
+        },
+        {
+            label: 'Availability of specifications',
+            value: specsAvailable,
+            setValue: setSpecsAvailable,
+        },
+        {
+            label: 'Filling of pits and imperfections',
+            value: fillingPits,
+            setValue: setFillingPits,
+        },
+        {
+            label: 'Safety of scaffolding',
+            value: safetyScaffolding,
+            setValue: setSafetyScaffolding,
+        },
+        {
+            label: 'Scaffolding clearance',
+            value: scaffoldingClearance,
+            setValue: setScaffoldingClearance,
+        },
+        {
+            label: 'Use of chemical paint',
+            value: chemicalPaint,
+            setValue: setChemicalPaint,
+        },
+        {
+            label: 'Painting gangs employed',
+            value: paintingGangs,
+            setValue: setPaintingGangs,
+        },
+        {
+            label: 'Application of bonding agent',
+            value: bondingAgent,
+            setValue: setBondingAgent,
+        },
+        {
+            label: 'Consistency of paint',
+            value: consistencyPaint,
+            setValue: setConsistencyPaint,
+        },
+        {
+            label: 'Uniform application',
+            value: applicationUniform,
+            setValue: setApplicationUniform,
+        },
+        {
+            label: 'Removal of scaffolds and cleaning',
+            value: removalScaffoldsCleaning,
+            setValue: setRemovalScaffoldsCleaning,
+        },
+    ];
+
+
     return (
         <div className='bg-blue-50 pb-20 p-5'>
             <Title text="Painting QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
-                <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
-                <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
-                <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
-                <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
-                <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
-                <InputField icon={locationIcon} placeholder="Supervisor Pno" handleInputChange={setSupervisorPno} />
+                {InputFieldParams.map((params, index) => (
+                    <InputField
+                        key={index}
+                        icon={params.icon}
+                        placeholder={params.placeholder}
+                        handleInputChange={params.handleInputChange}
+                    />
+                ))}
 
+
+                {checkListItems.map((item, index) => (
+                    <CheckListItem
+                        key={index}
+                        label={item.label}
+                        value={item.value}
+                        setValue={item.setValue}
+                    />
+                ))}
+
+
+                <InputField icon={locationIcon} placeholder="Number of coats" handleInputChange={setNumberCoats} />
+                <InputField icon={locationIcon} placeholder="Time between coats" handleInputChange={setTimeBetweenCoats} />
             </div>
 
-            <CheckListItem label="Cleaning of surface" value={cleaningSurface} setValue={setCleaningSurface} />
-            <CheckListItem label="Availability of specifications" value={specsAvailable} setValue={setSpecsAvailable} />
-            <CheckListItem label="Filling of pits and imperfections" value={fillingPits} setValue={setFillingPits} />
-            <CheckListItem label="Safety of scaffolding" value={safetyScaffolding} setValue={setSafetyScaffolding} />
-            <CheckListItem label="Scaffolding clearance" value={scaffoldingClearance} setValue={setScaffoldingClearance} />
-            <CheckListItem label="Use of chemical paint" value={chemicalPaint} setValue={setChemicalPaint} />
-            <CheckListItem label="Painting gangs employed" value={paintingGangs} setValue={setPaintingGangs} />
-            <CheckListItem label="Application of bonding agent" value={bondingAgent} setValue={setBondingAgent} />
-            <CheckListItem label="Consistency of paint" value={consistencyPaint} setValue={setConsistencyPaint} />
-            <CheckListItem label="Uniform application" value={applicationUniform} setValue={setApplicationUniform} />
-            <InputField icon={locationIcon} placeholder="Number of coats" handleInputChange={setNumberCoats} />
-            <InputField icon={locationIcon} placeholder="Time between coats" handleInputChange={setTimeBetweenCoats} />
-
-
-            <CheckListItem label="Removal of scaffolds and cleaning" value={removalScaffoldsCleaning} setValue={setRemovalScaffoldsCleaning} />
 
             <SubmitButton handleSubmit={handleFormLog} text="Submit" />
+
         </div>
     );
 };

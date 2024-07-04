@@ -105,47 +105,168 @@ const PlasteringQCForm = () => {
             alert('Error', error.message);
         }
     };
+
+    const InputFieldParams = [
+        {
+            icon: locationIcon,
+            placeholder: 'Project ID',
+            handleInputChange: setProjectID,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Structure',
+            handleInputChange: setStructure,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Quantity',
+            handleInputChange: setQuantity,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Ref Drg No.',
+            handleInputChange: setRefDrgNo,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Location',
+            handleInputChange: setLocation,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Description',
+            handleInputChange: setDescription,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Name',
+            handleInputChange: setSupervisorName,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor GatePass No.',
+            handleInputChange: setSupervisorPno,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Mortar mix proportion',
+            handleInputChange: setMortarMixProportion,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Thickness and number of coats',
+            handleInputChange: setThicknessAndNumberOfCoats,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Initial Setting Time',
+            handleInputChange: setInitialSettingTime,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Curing Duration',
+            handleInputChange: setCuringDuration,
+        },
+    ];
+
+    const checkListItems = [
+        {
+            label: 'Proper mixing of mortar',
+            value: properMixingOfMortar,
+            setValue: setProperMixingOfMortar,
+        },
+        {
+            label: 'Waterproofing compound',
+            value: waterproofingCompound,
+            setValue: setWaterproofingCompound,
+        },
+        {
+            label: 'Completion of ceiling plaster',
+            value: ceilingPlasterCompletion,
+            setValue: setCeilingPlasterCompletion,
+        },
+        {
+            label: 'Plastering sequence',
+            value: plasteringSequence,
+            setValue: setPlasteringSequence,
+        },
+        {
+            label: 'Wetting of surface before plastering',
+            value: wettingSurfaceBeforePlastering,
+            setValue: setWettingSurfaceBeforePlastering,
+        },
+        {
+            label: 'True level of surface',
+            value: trueLevelSurface,
+            setValue: setTrueLevelSurface,
+        },
+        {
+            label: 'Straight edges and sharp corners',
+            value: straightEdgesSharpCorners,
+            setValue: setStraightEdgesSharpCorners,
+        },
+        {
+            label: 'Architectural features',
+            value: architecturalFeatures,
+            setValue: setArchitecturalFeatures,
+        },
+        {
+            label: 'Level surface smoothness',
+            value: levelSurfaceSmoothness,
+            setValue: setLevelSurfaceSmoothness,
+        },
+        {
+            label: 'Straight edges',
+            value: straightEdges,
+            setValue: setStraightEdges,
+        },
+        {
+            label: 'Right angles and plumb',
+            value: rightAnglesPlumb,
+            setValue: setRightAnglesPlumb,
+        },
+        {
+            label: 'Removal of dead mortar debris',
+            value: removalOfDeadMortarDebris,
+            setValue: setRemovalOfDeadMortarDebris,
+        },
+        {
+            label: 'Sealing of openings in masonry',
+            value: sealingOpeningsInMasonry,
+            setValue: setSealingOpeningsInMasonry,
+        },
+        {
+            label: 'Plastering date marked',
+            value: plasteringDateMarked,
+            setValue: setPlasteringDateMarked,
+        },
+    ];
+
+
     return (
         <div className='bg-blue-50 pb-20 p-5'>
             <Title text="Plastering QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
-                <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
-                <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
-                <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
-                <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
-                <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
-                <InputField icon={locationIcon} placeholder="Supervisor Pno" handleInputChange={setSupervisorPno} />
+                {InputFieldParams.map((params, index) => (
+                    <InputField
+                        key={index}
+                        icon={params.icon}
+                        placeholder={params.placeholder}
+                        handleInputChange={params.handleInputChange}
+                    />
+                ))}
 
+
+                {checkListItems.map((item, index) => (
+                    <CheckListItem
+                        key={index}
+                        label={item.label}
+                        value={item.value}
+                        setValue={item.setValue}
+                    />
+                ))}
             </div>
-
-            <CheckListItem label="Proper mixing of mortar" value={properMixingOfMortar} setValue={setProperMixingOfMortar} />
-            <InputField icon={locationIcon} placeholder="Mortar mix proportion" handleInputChange={setMortarMixProportion} />
-
-            <CheckListItem label="Waterproofing compound" value={waterproofingCompound} setValue={setWaterproofingCompound} />
-            <CheckListItem label="Completion of ceiling plaster" value={ceilingPlasterCompletion} setValue={setCeilingPlasterCompletion} />
-            <CheckListItem label="Plastering sequence" value={plasteringSequence} setValue={setPlasteringSequence} />
-            <CheckListItem label="Wetting of surface before plastering" value={wettingSurfaceBeforePlastering} setValue={setWettingSurfaceBeforePlastering} />
-
-            <InputField icon={locationIcon} placeholder="Thickness and number of coats" handleInputChange={setThicknessAndNumberOfCoats} />
-
-            <CheckListItem label="True level of surface" value={trueLevelSurface} setValue={setTrueLevelSurface} />
-            <InputField icon={locationIcon} placeholder="Initial Setting Time" handleInputChange={setInitialSettingTime} />
-
-            <CheckListItem label="Straight edges and sharp corners" value={straightEdgesSharpCorners} setValue={setStraightEdgesSharpCorners} />
-            <CheckListItem label="Architectural features" value={architecturalFeatures} setValue={setArchitecturalFeatures} />
-            <CheckListItem label="Level surface smoothness" value={levelSurfaceSmoothness} setValue={setLevelSurfaceSmoothness} />
-            <CheckListItem label="Straight edges" value={straightEdges} setValue={setStraightEdges} />
-            <CheckListItem label="Right angles and plumb" value={rightAnglesPlumb} setValue={setRightAnglesPlumb} />
-            <CheckListItem label="Removal of dead mortar debris" value={removalOfDeadMortarDebris} setValue={setRemovalOfDeadMortarDebris} />
-            <CheckListItem label="Sealing of openings in masonry" value={sealingOpeningsInMasonry} setValue={setSealingOpeningsInMasonry} />
-            <CheckListItem label="Plastering date marked" value={plasteringDateMarked} setValue={setPlasteringDateMarked} />
-            <InputField icon={locationIcon} placeholder="Curing Duration" handleInputChange={setCuringDuration} />
-
-
-
             <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
     );

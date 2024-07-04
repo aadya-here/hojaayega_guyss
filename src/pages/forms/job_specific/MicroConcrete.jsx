@@ -95,13 +95,140 @@ const MicroConcreteForm = () => {
         try {
             const formID = await handleSubmit();
             await addFormLog(formID, projectID, vendorId, form_num);
-            alert('Success')
+            // alert('Success')
             console.log('form:', formID);
         } catch (error) {
             console.error('Error creating form log:', error);
             alert('Error', error.message);
         }
     };
+    const InputFieldParams = [
+        {
+            icon: locationIcon,
+            placeholder: 'Project ID',
+            handleInputChange: setProjectID,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Structure',
+            handleInputChange: setStructure,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Quantity',
+            handleInputChange: setQuantity,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Ref Drg No.',
+            handleInputChange: setRefDrgNo,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Location',
+            handleInputChange: setLocation,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Description',
+            handleInputChange: setDescription,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor Name',
+            handleInputChange: setSupervisorName,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Supervisor GatePass No.',
+            handleInputChange: setSupervisorPno,
+        },
+        {
+            icon: locationIcon,
+            placeholder: 'Thickness',
+            handleInputChange: setThickness,
+        },
+    ];
+
+    const checkListItems = [
+        {
+            label: 'Proper mixing of micro concrete',
+            value: properMixing,
+            setValue: setProperMixing,
+        },
+        {
+            label: 'Cleaning of surface',
+            value: cleaningSurface,
+            setValue: setCleaningSurface,
+        },
+        {
+            label: 'Chipping of surface',
+            value: chippingSurface,
+            setValue: setChippingSurface,
+        },
+        {
+            label: 'Application of anticorrosive paint',
+            value: anticorrosivePaint,
+            setValue: setAnticorrosivePaint,
+        },
+        {
+            label: 'Use of corrosion inhibitor',
+            value: corrosionInhibitor,
+            setValue: setCorrosionInhibitor,
+        },
+        {
+            label: 'Application of bonding agent',
+            value: bondingAgent,
+            setValue: setBondingAgent,
+        },
+        {
+            label: 'Placing of micro concrete',
+            value: microConcrete,
+            setValue: setMicroConcrete,
+        },
+        {
+            label: 'Shuttering check',
+            value: shutteringCheck,
+            setValue: setShutteringCheck,
+        },
+        {
+            label: 'Thickness check',
+            value: thicknessCheck,
+            setValue: setThicknessCheck,
+        },
+        {
+            label: 'Consumption within setting time',
+            value: consumptionWithinSettingTime,
+            setValue: setConsumptionWithinSettingTime,
+        },
+        {
+            label: 'Architectural features check',
+            value: architecturalFeaturesCheck,
+            setValue: setArchitecturalFeaturesCheck,
+        },
+        {
+            label: 'Surface smoothness',
+            value: surfaceSmoothness,
+            setValue: setSurfaceSmoothness,
+        },
+        {
+            label: 'Removal of debris',
+            value: removalDebris,
+            setValue: setRemovalDebris,
+        },
+        {
+            label: 'Sealing of openings',
+            value: sealingOpenings,
+            setValue: setSealingOpenings,
+        },
+        {
+            label: 'Curing of micro concrete',
+            value: curing,
+            setValue: setCuring,
+        },
+    ];
+
+
 
 
     return (
@@ -109,32 +236,26 @@ const MicroConcreteForm = () => {
             <Title text="Micro Concrete QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <InputField icon={locationIcon} placeholder="Project ID" handleInputChange={setProjectID} />
-                <InputField icon={locationIcon} placeholder="Structure" handleInputChange={setStructure} />
-                <InputField icon={locationIcon} placeholder="Quantity" handleInputChange={setQuantity} />
-                <InputField icon={locationIcon} placeholder="Ref Drg No." handleInputChange={setRefDrgNo} />
-                <InputField icon={locationIcon} placeholder="Location" handleInputChange={setLocation} />
-                <InputField icon={locationIcon} placeholder="Description" handleInputChange={setDescription} />
-                <InputField icon={locationIcon} placeholder="Supervisor Name" handleInputChange={setSupervisorName} />
-                <InputField icon={locationIcon} placeholder="Supervisor GatePass No." handleInputChange={setSupervisorPno} />
-                <InputField icon={locationIcon} placeholder="Thickness" handleInputChange={setThickness} />
-            </div>
+                {InputFieldParams.map((params, index) => (
+                    <InputField
+                        key={index}
+                        icon={params.icon}
+                        placeholder={params.placeholder}
+                        handleInputChange={params.handleInputChange}
+                    />
+                ))}
 
-            <CheckListItem label="Proper mixing of micro concrete" value={properMixing} setValue={setProperMixing} />
-            <CheckListItem label="Cleaning of surface" value={cleaningSurface} setValue={setCleaningSurface} />
-            <CheckListItem label="Chipping of surface" value={chippingSurface} setValue={setChippingSurface} />
-            <CheckListItem label="Application of anticorrosive paint" value={anticorrosivePaint} setValue={setAnticorrosivePaint} />
-            <CheckListItem label="Use of corrosion inhibitor" value={corrosionInhibitor} setValue={setCorrosionInhibitor} />
-            <CheckListItem label="Application of bonding agent" value={bondingAgent} setValue={setBondingAgent} />
-            <CheckListItem label="Placing of micro concrete" value={microConcrete} setValue={setMicroConcrete} />
-            <CheckListItem label="Shuttering check" value={shutteringCheck} setValue={setShutteringCheck} />
-            <CheckListItem label="Thickness check" value={thicknessCheck} setValue={setThicknessCheck} />
-            <CheckListItem label="Consumption within setting time" value={consumptionWithinSettingTime} setValue={setConsumptionWithinSettingTime} />
-            <CheckListItem label="Architectural features check" value={architecturalFeaturesCheck} setValue={setArchitecturalFeaturesCheck} />
-            <CheckListItem label="Surface smoothness" value={surfaceSmoothness} setValue={setSurfaceSmoothness} />
-            <CheckListItem label="Removal of debris" value={removalDebris} setValue={setRemovalDebris} />
-            <CheckListItem label="Sealing of openings" value={sealingOpenings} setValue={setSealingOpenings} />
-            <CheckListItem label="Curing of micro concrete" value={curing} setValue={setCuring} />
+
+                {checkListItems.map((item, index) => (
+                    <CheckListItem
+                        key={index}
+                        label={item.label}
+                        value={item.value}
+                        setValue={item.setValue}
+                    />
+                ))}
+
+            </div>
 
             <SubmitButton handleSubmit={handleFormLog} text="Submit" />
         </div>
