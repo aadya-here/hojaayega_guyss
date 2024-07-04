@@ -14,6 +14,7 @@ import PaintingQCForm from './pages/forms/job_specific/Painting';
 import PlasteringQCForm from './pages/forms/job_specific/Plastering';
 import Forms from './pages/Forms';
 import BottomNavbar from './components/BottomNavbar';
+import FormsList from './pages/FormsList';
 
 const App = () => {
   return (
@@ -30,8 +31,8 @@ const App = () => {
               <Route path="/test" element={<Test />} />
 
 
-              <Route path="/forms" element={<Forms />} />
-              {/* <Route path="job-specific" element={<Forms />}>
+            <Route path="/forms" element={<Forms />} />
+            {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
                 <Route path="micro-concrete" element={<MicroConcreteForm />} />
                 <Route path="mortar" element={<MortarPlasteringQCForm />} />
