@@ -4,6 +4,7 @@ import FormCard from '../components/FormCard';
 import Title from '../components/Title';
 import supabase from '../supabase';
 import { useVendor } from '../context/vendorContext';
+import { Button, Divider } from '@mui/joy';
 
 const FormsList = () => {
     const [forms, setForms] = useState([]);
@@ -20,6 +21,7 @@ const FormsList = () => {
                 approval_status,
                 form_num,
                 form_id,
+                form_log_id,
                 projects!inner(
                     project_title
                 ),
@@ -34,6 +36,7 @@ const FormsList = () => {
                 console.error('Error fetching data:', error);
             } else {
                 setForms(data);
+                console.log(data[0].form_log_id);
             }
         };
 
@@ -43,8 +46,11 @@ const FormsList = () => {
     return (
         <div className="w-full min-h-screen bg-blue-50 p-5 flex flex-col items-center">
             <Title text="Filled Forms" />
-            <div className="my-0 p-0  flex flex-col space-y-3 w-full sm:w-4/5 md:w-4/5 lg:w-full">
-
+            <Button variant="outlined">Outlined</Button> {/* filters if possible */}
+            <br />
+            <Divider sx={{ width: '50%', margin: 'auto' }} />
+            <br />
+            <div className="my-0 p-0 flex flex-col space-y-3 w-full sm:w-4/5 md:w-4/5 lg:w-full">
                 {forms.map((form) => (
                     <FormCard
                         key={form.form_id}
@@ -52,6 +58,7 @@ const FormsList = () => {
                         date={new Date(form.created_on).toLocaleDateString()}
                         formStatus={form.approval_status}
                         formName={form.forms_list?.form_name}
+                        formLogId={form.form_log_id}
                     />
                 ))}
             </div>

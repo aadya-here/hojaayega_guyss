@@ -3,8 +3,9 @@ import { Box, Card, Chip, Typography, Divider, ListItem, CardActions, Button } f
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import { useMediaQuery } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const FormCard = ({ projectName, date, formStatus, formName }) => {
+const FormCard = ({ projectName, date, formStatus, formName, formLogId }) => {
     const isLargeScreen = useMediaQuery('(min-width:600px)');
     const getColor = (status) => {
         switch (status) {
@@ -42,6 +43,8 @@ const FormCard = ({ projectName, date, formStatus, formName }) => {
                     variant="soft"
                     color="neutral"
                     endDecorator={<KeyboardArrowRight />}
+                    component={Link}
+                    to={`/forms-view/${formLogId}`}
                 >
                     View
                 </Button>
@@ -50,7 +53,10 @@ const FormCard = ({ projectName, date, formStatus, formName }) => {
                     variant="soft"
                     color="neutral"
                     startDecorator={<GetAppIcon />}
+
+
                 >
+
                     {isLargeScreen ? 'Download' : ''}
                 </Button>
             </CardActions>

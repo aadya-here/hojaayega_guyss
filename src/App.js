@@ -15,6 +15,7 @@ import PlasteringQCForm from './pages/forms/job_specific/Plastering';
 import Forms from './pages/Forms';
 import BottomNavbar from './components/BottomNavbar';
 import FormsList from './pages/FormsList';
+import FormViewById from './pages/FormViewById';
 
 const App = () => {
   return (
@@ -31,9 +32,11 @@ const App = () => {
               <Route path="/test" element={<Test />} />
 
 
-            <Route path="/forms" element={<Forms />} />
-            <Route path="/forms-list" element={<FormsList />} />
-            {/* <Route path="job-specific" element={<Forms />}>
+              <Route path="/forms" element={<Forms />} />
+              <Route path="/forms-view" element={<FormsList />} />
+              <Route path="/forms-view/:formLogId" element={<FormViewById />} />
+
+              {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
                 <Route path="micro-concrete" element={<MicroConcreteForm />} />
                 <Route path="mortar" element={<MortarPlasteringQCForm />} />
