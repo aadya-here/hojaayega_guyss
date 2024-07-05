@@ -3,22 +3,28 @@ import { useVendor } from '../context/vendorContext';
 import ProjectCard from '../components/ProjectCard';
 import supabase from '../supabase';
 import Box from '@mui/joy/Box';
+import Chip from '@mui/joy/Chip';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
-import Tab from '@mui/joy/Tab';
-import TabPanel from '@mui/lab/TabPanel';
-import TabContext from '@mui/lab/TabContext';
+import Tab, { tabClasses } from '@mui/joy/Tab';
+import TabPanel from '@mui/joy/TabPanel';
+import Title from '../components/Title';
+import Subheading from '../components/Subheading';
+import { useMediaQuery } from '@mui/material';
 
 const ProjectsPage = () => {
     const { vendorId } = useVendor();
     const [projects, setProjects] = useState([]);
-    const [vendorName, setVendorName] = useState('');
-    const [value, setValue] = useState('ongoing');
+    const [index, setIndex] = useState(0);
     const [filteredProjects, setFilteredProjects] = useState([]);
+    const [vendorName, setVendorName] = useState('');
+    const isLargeScreen = useMediaQuery('(min-width:600px)');
+
 
     useEffect(() => {
         if (vendorId) {
             fetchProjects();
+            fetchVendorName();
         }
     }, [vendorId]);
 
@@ -28,117 +34,183 @@ const ProjectsPage = () => {
                 .from('projects')
                 .select('*')
                 .eq('vendor_id', vendorId)
-                .eq('sent_to_vendor', true);
+                .eq('sent_to_vendor', true)
+                .order('project_id', { ascending: false });
 
             if (error) {
                 throw error;
             }
 
             setProjects(data);
-            filterProjectsByTab(value, data);
+            filterProjectsByTab(index, data);
+            console.log(data);
         } catch (error) {
             console.error('Error fetching projects:', error.message);
-            // Handle error (e.g., show a message to the user)
         }
     };
 
     const filterProjectsByTab = (tab, projects) => {
-        const filtered = projects.filter(project => project.status === tab);
+        const statusMap = ['ongoing', 'upcoming', 'completed'];
+        const filtered = projects.filter(project => project.status === statusMap[tab]);
         setFilteredProjects(filtered);
     };
 
-    const handleTabChange = (event, newValue) => {
-        setValue(newValue);
-        filterProjectsByTab(newValue, projects);
+    const handleTabChange = (event, value) => {
+        setIndex(value);
+        filterProjectsByTab(value, projects);
+    };
+
+    const fetchVendorName = async () => {
+        try {
+            const { data: vendorData, error: vendorError } = await supabase
+                .from('vendors')
+                .select('vendor_name')
+                .eq('vendor_id', vendorId)
+                .single();
+
+            if (vendorError) {
+                console.error('Error fetching vendor data:', vendorError.message);
+            } else {
+                setVendorName(vendorData.vendor_name);
+            }
+        } catch (error) {
+            console.error('Error in fetchVendorName:', error.message);
+        }
     };
 
     return (
-        <Box
-            sx={{
-                height: '100vh',
-                display: 'flex',
-                // justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-            }}
-        >
-            <h2>Vendor Projects</h2>
-            <p>Vendor ID: {vendorId}</p>
-            {vendorName && <p>Vendor Name: {vendorName}</p>}
-
+        <div className="w-full min-h-screen  min-w-screen  bg-blue-50 p-5 flex flex-col items-center">
             <Box
                 sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    width: '100%',
+                    flexGrow: 1,
+                    m: -2,
+                    overflowX: 'hidden',
                 }}
             >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        width: '80%',
-                        maxWidth: '600px',
-                        bgcolor: 'background.paper',
-                        boxShadow: 1,
-                        borderRadius: 2,
-                        p: 2,
-                    }}
+                <Title text="Projects" />
+                <Subheading text={`${vendorId} : ${vendorName}`} />
+                <Tabs
+                    aria-label="Projects"
+                    value={index}
+                    onChange={handleTabChange}
+                    size={isLargeScreen ? "md" : 'sm'}
+                    sx={{ bgcolor: "#eff6ff" }}
                 >
-                    <TabContext value={value}>
-                        <Tabs
-                            aria-label="Soft tabs"
-                            value={value}
-                            onChange={handleTabChange}
-                        >
-                            <TabList variant="soft">
-                                <Tab
-                                    variant={value === 'ongoing' ? 'solid' : 'plain'}
-                                    color={value === 'ongoing' ? 'primary' : 'neutral'}
-                                    value="ongoing"
-                                >
-                                    Ongoing
-                                </Tab>
-                                <Tab
-                                    variant={value === 'upcoming' ? 'solid' : 'plain'}
-                                    color={value === 'upcoming' ? 'primary' : 'neutral'}
-                                    value="upcoming"
-                                >
-                                    Upcoming
-                                </Tab>
-                                <Tab
-                                    variant={value === 'completed' ? 'solid' : 'plain'}
-                                    color={value === 'completed' ? 'primary' : 'neutral'}
-                                    value="completed"
-                                >
-                                    Completed
-                                </Tab>
-                            </TabList>
-                        </Tabs>
+                    <TabList
+                        sx={{
+                            pt: 1,
+                            justifyContent: 'center',
+                            maxWidth: isLargeScreen ? '500px' : '300px',
 
-                        <TabPanel value="ongoing">
+
+
+
+                            [`&& .${tabClasses.root}`]: {
+                                flex: 'initial',
+                                bgcolor: '#eff6ff',
+                                paddingX: 5,
+                                paddingY: 2,
+                                '&:hover': {
+                                    bgcolor: '#eff6ff',
+                                    paddingX: 5,
+                                    paddingY: 2,
+                                    borderRadius: 10
+                                },
+                                [`&.${tabClasses.selected}`]: {
+                                    color: 'primary.plainColor',
+                                    '&::after': {
+                                        height: 2,
+                                        borderTopLeftRadius: 3,
+                                        borderTopRightRadius: 3,
+                                        bgcolor: 'primary.700',
+                                    },
+                                },
+                            },
+                            '@media (max-width: 600px)': {
+                                [`&& .${tabClasses.root}`]: {
+                                    paddingX: 2,
+                                    paddingY: 1,
+                                },
+                            },
+                        }}
+                    >
+                        <Tab indicatorInset>
+                            Ongoing{' '}
+                            <Chip
+                                size="sm"
+                                variant="soft"
+                                color={index === 0 ? 'primary' : 'warning'}
+                            >
+                                {projects.filter(project => project.status === 'ongoing').length}
+                            </Chip>
+                        </Tab>
+                        <Tab indicatorInset>
+                            Upcoming{' '}
+                            <Chip
+                                size="sm"
+                                variant="soft"
+                                color={index === 1 ? 'primary' : 'neutral'}
+                            >
+                                {projects.filter(project => project.status === 'upcoming').length}
+                            </Chip>
+                        </Tab>
+                        <Tab indicatorInset>
+                            Completed{' '}
+                            <Chip
+                                size="sm"
+                                variant="soft"
+                                color={index === 2 ? 'primary' : 'success'}
+                            >
+                                {projects.filter(project => project.status === 'completed').length}
+                            </Chip>
+                        </Tab>
+                    </TabList>
+                    <Box
+                        sx={{
+                            background: '#eff6ff',
+                            boxShadow: 'none',
+                        }}
+                    >
+                        <TabPanel value={0}>
                             {filteredProjects.map(project => (
-                                <ProjectCard key={project.id} project={project} />
+                                <ProjectCard
+                                    key={project.project_id}
+                                    projectName={project.project_title}
+                                    projectLocation={project.location}
+                                    projectStatus={project.status}
+                                    deliveryEndDate={project.delivery_end_date}
+                                    projectId={project.project_id}
+                                />
                             ))}
                         </TabPanel>
-                        <TabPanel value="upcoming">
+                        <TabPanel value={1}>
                             {filteredProjects.map(project => (
-                                <ProjectCard key={project.id} project={project} />
+                                <ProjectCard
+                                    key={project.project_id}
+                                    projectName={project.project_title}
+                                    projectLocation={project.location}
+                                    projectStatus={project.status}
+                                    deliveryEndDate={project.delivery_end_date}
+                                    projectId={project.project_id}
+                                />
                             ))}
                         </TabPanel>
-                        <TabPanel value="completed">
+                        <TabPanel value={2}>
                             {filteredProjects.map(project => (
-                                <ProjectCard key={project.id} project={project} />
+                                <ProjectCard
+                                    key={project.project_id}
+                                    projectName={project.project_title}
+                                    projectLocation={project.location}
+                                    projectStatus={project.status}
+                                    deliveryEndDate={project.delivery_end_date}
+                                    projectId={project.project_id}
+                                />
                             ))}
                         </TabPanel>
-                    </TabContext>
-                </Box>
+                    </Box>
+                </Tabs>
             </Box>
-        </Box>
+        </div >
     );
 };
 
