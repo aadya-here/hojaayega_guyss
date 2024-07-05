@@ -11,7 +11,7 @@ const ProjectView = () => {
     return (
         <div>
             <h1>hello</h1>
-            <h1>{projectId}</h1>
+            <h1>Project ID : {projectId}</h1>
         </div>
     );
 };
