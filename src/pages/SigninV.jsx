@@ -108,7 +108,7 @@ const VendorLoginPage = () => {
                     value={vendorCode}
                     onChange={(e) => setVendorCode(e.target.value)}
                 />
-                <SubmitButton handleSubmit={handleVendorLogin} text="Submit" />
+                <SubmitButton handleSubmit={handleVendorLogin} text="Signin" />
 
             </form>
         </CommonAuth>

@@ -9,11 +9,19 @@ const Wrapper = styled("div")({
   backgroundImage: `url(${bg})`,
   backgroundColor: "#041643",
   backgroundPosition: "left center",
-  backgroundRepeat: "no-repeat",
+  backgroundRepeat: "repeat",
   backgroundSize: "cover",
-  height: "100vh",
+  minHeight: "100vh",
   display: "flex",
   alignItems: "center",
+  paddingTop: "1em",
+  paddingBottom: '1em',
+
+  "@media (min-width: 840px)": {
+    height: "100vh",
+
+  }
+
 });
 
 const CenteredContainer = styled("div")({
@@ -22,6 +30,10 @@ const CenteredContainer = styled("div")({
   width: "800px",
   marginInline: "auto",
   marginBottom: "2rem",
+  padding: "1em",
+
+
+
   justifyContent: "space-between",
   alignItems: "flex-start",
   gap: "2rem",
@@ -29,13 +41,15 @@ const CenteredContainer = styled("div")({
     flexDirection: "column",
     alignItems: "center",
     maxWidth: "90%",
+    paddingTop: "2em",
+    // paddingY: "3em"
   },
 });
 
-const Text = styled(Typography)({
+const CustomText = styled(Typography)({
   color: "white",
   fontWeight: "500",
-  fontSize: "2.4rem",
+  // fontSize: "2.4rem",
 });
 
 const CardContainer = styled(Card)({
@@ -61,20 +75,23 @@ const CommonAuth = ({ children }) => {
     <Wrapper>
       <CenteredContainer>
         <Stack>
-          <Text variant="h3" component="h1">
+          <CustomText variant="h4" component="h2">
             {isSignUp ? (
               <>
-                Create a <br /> new account
+                {/* Create a <br /> */}
+                New account
               </>
             ) : (
               <>
-                Login into <br /> your account
+                Login into
+                <br /> your account
               </>
             )}
-          </Text>
-          <Typography variant="subtitle1" className="text-[#AFAFAF]">
-            Let us make the circle bigger!
-          </Typography>
+          </CustomText>
+          <CustomText variant="h3" component="h3"> CPMS</CustomText>
+          <CustomText variant="caption" > Contruction Project Management System</CustomText>
+
+
         </Stack>
         <CardContainer>
           <FormContainer>{children}</FormContainer>

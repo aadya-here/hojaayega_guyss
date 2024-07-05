@@ -43,7 +43,7 @@ const SignInPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div style={{ marginBottom: "20px" }}></div>
-        <SubmitButton andleSubmit={handleLogin} text="Submit" />
+        <SubmitButton andleSubmit={handleLogin} text="Next" />
 
         <div style={{ margin: "16px 0" }}></div>
         <span>
