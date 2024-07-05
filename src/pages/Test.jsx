@@ -28,16 +28,6 @@ export const Test = () => {
             placeholder: 'Quantity',
             handleInputChange: setQuantity,
         },
-        {
-            icon: locationIcon,
-            placeholder: 'Ref Drg No.',
-            handleInputChange: setRefDrgNo,
-        },
-        {
-            icon: locationIcon,
-            placeholder: 'Location',
-            handleInputChange: setLocation,
-        },
     ];
 
     const checkListItems = [

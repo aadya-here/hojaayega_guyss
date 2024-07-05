@@ -11,6 +11,7 @@ import TabPanel from '@mui/joy/TabPanel';
 import Title from '../components/Title';
 import Subheading from '../components/Subheading';
 import { useMediaQuery } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProjectsPage = () => {
     const { vendorId } = useVendor();
@@ -20,6 +21,7 @@ const ProjectsPage = () => {
     const [vendorName, setVendorName] = useState('');
     const isLargeScreen = useMediaQuery('(min-width:600px)');
 
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (vendorId) {
@@ -43,7 +45,7 @@ const ProjectsPage = () => {
 
             setProjects(data);
             filterProjectsByTab(index, data);
-            console.log(data);
+
         } catch (error) {
             console.error('Error fetching projects:', error.message);
         }
@@ -78,8 +80,14 @@ const ProjectsPage = () => {
         }
     };
 
+    const handleProjectClick = (projectId) => {
+        navigate(`${projectId}`);
+        console.log('Project ID:', projectId);
+    };
+
+
     return (
-        <div className="w-full min-h-screen  min-w-screen  bg-blue-50 p-5 flex flex-col items-center">
+        <div className="w-full min-h-screen min-w-screen bg-blue-50 p-5 flex flex-col items-center">
             <Box
                 sx={{
                     flexGrow: 1,
@@ -101,10 +109,6 @@ const ProjectsPage = () => {
                             pt: 1,
                             justifyContent: 'center',
                             maxWidth: isLargeScreen ? '500px' : '300px',
-
-
-
-
                             [`&& .${tabClasses.root}`]: {
                                 flex: 'initial',
                                 bgcolor: '#eff6ff',
@@ -180,6 +184,7 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}
                         </TabPanel>
@@ -192,6 +197,7 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}
                         </TabPanel>
@@ -204,6 +210,7 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}
                         </TabPanel>

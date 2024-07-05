@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useVendor } from '../context/vendorContext'; // Assuming this is the correct import path
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import supabase from '../supabase';
+import CommonAuth from '../components/CommonAuth';
+import SubmitButton from '../components/PrimaryButton';
+import { Input } from '@mui/joy';
 
 const VendorLoginPage = () => {
     const { setVendorId } = useVendor();
@@ -38,6 +41,7 @@ const VendorLoginPage = () => {
     }, []);
 
     const handleVendorSelect = (event) => {
+        console.log(event.target.value);
         setSelectedVendor(event.target.value);
     };
 
@@ -62,7 +66,7 @@ const VendorLoginPage = () => {
             }
 
             if (data && data.vendor_code === parseInt(vendorCode, 10)) {
-                alert('Vendor login successful.');
+                // alert('Vendor login successful.');
                 setVendorId(selectedVendor); // Set vendorId in context
                 navigate('/projects');
             } else {
@@ -75,35 +79,39 @@ const VendorLoginPage = () => {
     };
 
     return (
-        <form onSubmit={handleVendorLogin}>
-            <FormControl fullWidth>
-                <InputLabel id="vendor-select-label">Vendor</InputLabel>
-                <Select
-                    labelId="vendor-select-label"
-                    id="vendor-select"
-                    value={selectedVendor}
-                    label="Vendor"
-                    onChange={handleVendorSelect}
-                >
-                    {vendorList.map((vendor) => (
-                        <MenuItem key={vendor.value} value={vendor.value}>
-                            {vendor.label}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <TextField
-                fullWidth
-                label="Vendor Code"
-                variant="outlined"
-                value={vendorCode}
-                onChange={(e) => setVendorCode(e.target.value)}
-                margin="normal"
-            />
-            <Button type="submit" variant="contained" color="primary">
-                Login
-            </Button>
-        </form>
+        <CommonAuth>
+            <form onSubmit={handleVendorLogin}>
+                <FormControl fullWidth>
+                    <InputLabel id="vendor-select-label">Vendor</InputLabel>
+                    <Select
+                        labelId="vendor-select-label"
+                        id="vendor-select"
+                        value={selectedVendor}
+                        label="Vendor"
+                        onChange={handleVendorSelect}
+                    >
+                        {vendorList.map((vendor) => (
+                            <MenuItem key={vendor.value} value={vendor.value}>
+                                {vendor.label}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <br></br>
+
+                <Input
+                    placeholder="Vendor Code"
+                    variant="outlined"
+                    type="password"
+                    sx={{ marginY: '10px' }}
+                    value={vendorCode}
+                    onChange={(e) => setVendorCode(e.target.value)}
+                />
+                <SubmitButton handleSubmit={handleVendorLogin} text="Submit" />
+
+            </form>
+        </CommonAuth>
     );
 };
 

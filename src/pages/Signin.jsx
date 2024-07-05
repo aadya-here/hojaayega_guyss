@@ -5,6 +5,7 @@ import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
 import supabase from "../supabase"; // Make sure to import your supabase client
 import CommonAuth from "../components/CommonAuth";
+import SubmitButton from "../components/PrimaryButton";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -29,22 +30,21 @@ const SignInPage = () => {
       <form onSubmit={handleLogin}>
         <Input
           placeholder="Email"
-          variant="soft"
+          variant="outlined"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <div style={{ marginBottom: "16px" }}></div>
         <Input
           placeholder="Password"
-          variant="soft"
+          variant="outlined"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div style={{ marginBottom: "20px" }}></div>
-        <Button variant="solid" type="submit" sx={{ width: "100%" }}>
-          Sign In
-        </Button>
+        <SubmitButton andleSubmit={handleLogin} text="Submit" />
+
         <div style={{ margin: "16px 0" }}></div>
         <span>
           Don't have an account?

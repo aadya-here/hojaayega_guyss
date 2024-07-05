@@ -5,7 +5,7 @@ import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
-const ProjectCard = ({ projectName, projectLocation, projectStatus, deliveryEndDate, projectId }) => {
+const ProjectCard = ({ projectName, projectLocation, projectStatus, deliveryEndDate, projectId, onClick }) => {
     const isLargeScreen = useMediaQuery('(min-width:600px)');
     const getColor = (status) => {
         switch (status) {
@@ -26,6 +26,7 @@ const ProjectCard = ({ projectName, projectLocation, projectStatus, deliveryEndD
     };
 
     return (
+
         <Card
             size="md"
             variant="outlined"
@@ -34,6 +35,7 @@ const ProjectCard = ({ projectName, projectLocation, projectStatus, deliveryEndD
                 minWidth: isLargeScreen ? '400px' : '200px',
                 margin: '5px'
             }}
+        // onClick={onClick}
         >
             <Typography level="h4">{projectName}</Typography>
             <div className="flex justify-between items-center">
@@ -50,7 +52,8 @@ const ProjectCard = ({ projectName, projectLocation, projectStatus, deliveryEndD
                     color="neutral"
                     endDecorator={<KeyboardArrowRight />}
                     component={Link}
-                    to={`/project-view/${projectId}`}
+                    onClick={onClick}
+                    to={`${projectId}`}
                 >
                     View
                 </Button>
