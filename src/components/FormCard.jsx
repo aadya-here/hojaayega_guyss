@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Card, Chip, Typography, Divider, ListItem, CardActions, Button } from '@mui/joy';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import GetAppIcon from '@mui/icons-material/GetApp';
+// import GetAppIcon from '@mui/icons-material/GetApp';
 import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const FormCard = ({ projectName, date, formStatus, formName, formId, formLogId }) => {
     const isLargeScreen = useMediaQuery('(min-width:600px)');
@@ -51,14 +52,14 @@ const FormCard = ({ projectName, date, formStatus, formName, formId, formLogId }
                 </Button>
                 <Button
                     size="sm"
-                    variant="soft"
+                    variant="outline"
                     color="neutral"
-                    startDecorator={<GetAppIcon />}
+                    startDecorator={<LocationOnOutlinedIcon />}
 
 
                 >
 
-                    {isLargeScreen ? 'Download' : ''}
+                    {/* {isLargeScreen ? 'Download' : ''} */}
                 </Button>
             </CardActions>
         </Card>
