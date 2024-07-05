@@ -59,6 +59,7 @@ const FormsList = () => {
                         formStatus={form.approval_status}
                         formName={form.forms_list?.form_name}
                         formLogId={form.form_log_id}
+                        formId={form.form_id}
                     />
                 ))}
             </div>

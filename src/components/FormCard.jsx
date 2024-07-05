@@ -5,8 +5,9 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const FormCard = ({ projectName, date, formStatus, formName, formLogId }) => {
+const FormCard = ({ projectName, date, formStatus, formName, formId, formLogId }) => {
     const isLargeScreen = useMediaQuery('(min-width:600px)');
+    // const queryParams = queryString.stringify({ formName, formLogId });
     const getColor = (status) => {
         switch (status) {
             case 'approved':
@@ -44,7 +45,7 @@ const FormCard = ({ projectName, date, formStatus, formName, formLogId }) => {
                     color="neutral"
                     endDecorator={<KeyboardArrowRight />}
                     component={Link}
-                    to={`/forms-view/${formLogId}`}
+                    to={`/forms-view/${formName}/${formId}/${formLogId}`}
                 >
                     View
                 </Button>

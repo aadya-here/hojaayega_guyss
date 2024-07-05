@@ -57,7 +57,8 @@ const ProjectSelectionMenu = ({ handleProjectChange }) => {
         setSelectedProject(projectId);
         console.log('PROJECT', projectId)
         if (handleProjectChange) {
-            handleProjectChange(projectId); // Notify parent component
+            handleProjectChange(projectId);
+            console.log('PROJECT--', projectId)
         }
     };
 

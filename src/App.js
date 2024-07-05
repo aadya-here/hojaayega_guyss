@@ -34,7 +34,7 @@ const App = () => {
 
               <Route path="/forms" element={<Forms />} />
               <Route path="/forms-view" element={<FormsList />} />
-              <Route path="/forms-view/:formLogId" element={<FormViewById />} />
+              <Route path="/forms-view/:formName/:formId/:formLogId" element={<FormViewById />} />
 
               {/* <Route path="job-specific" element={<Forms />}>
                 <Route path="brick-masonry" element={<BrickMasonryQCForm />} />
