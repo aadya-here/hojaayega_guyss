@@ -1,9 +1,6 @@
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DocumentTextIcon, DocumentCheckIcon, UserIcon, ListBulletIcon, RectangleGroupIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/outline'
@@ -36,6 +33,7 @@ export default function BottomNavbar() {
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
+                    // showLabels = false;
                 }}
                 sx={{ justifyContent: 'space-evenly' }}
             >
@@ -58,10 +56,10 @@ export default function BottomNavbar() {
                     onClick={() => { navigate("/forms") }}
                 />
                 <BottomNavigationAction
-                    label="FilledForms"
+                    label="Filled Docs"
                     icon={<DocumentCheckIcon className="size-5" />}
                     sx={{ justifyContent: 'center' }}
-                    onClick={() => { navigate("/form-view") }}
+                    onClick={() => { navigate("/forms-view") }}
                 />
                 <BottomNavigationAction
                     label="Profile"

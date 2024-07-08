@@ -184,6 +184,7 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    type={project.type}
                                     onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}
@@ -197,6 +198,8 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    type={project.type}
+
                                     onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}
@@ -210,6 +213,8 @@ const ProjectsPage = () => {
                                     projectStatus={project.status}
                                     deliveryEndDate={project.delivery_end_date}
                                     projectId={project.project_id}
+                                    type={project.type}
+
                                     onClick={() => handleProjectClick(project.project_id)}
                                 />
                             ))}

@@ -142,7 +142,7 @@ function FormsView() {
     }, [formName, formId, formLogId, projectId, projectName, vendorName]);
 
     if (!data) {
-        return <div className='bg-blue-50 pb-20 p-5 min-w-screen'><Title text="Loading" /></div>;
+        return <div className='bg-white pb-20 p-5 min-w-screen'><Title text="Loading" /></div>;
     }
 
     const rows = Object.entries(data).map(([key, value]) => ({
@@ -163,7 +163,7 @@ function FormsView() {
 
     return (
 
-        <div className='bg-blue-50 pb-20 p-5 min-w-screen'>
+        <div className='bg-white pb-20 p-5 min-w-screen'>
             <div className="py-5 pb-1 mx-auto w-full sm:w-4/5 lg:w-70">
                 <div className="flex justify-between mb-4">
                     <button
