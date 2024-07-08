@@ -14,6 +14,7 @@ import FormViewById from './pages/FormViewById';
 import ProjectView from './pages/ProjectViewById';
 import CreateLog from './pages/forms/daily_checklists/CreateLog';
 import Profile from './pages/Profile'
+import PPEChecklist from './pages/forms/daily_checklists/PPEChecklist';
 
 
 
@@ -42,7 +43,9 @@ const App = () => {
               <Route path="/projects/:projectId" element={<ProjectView />} />
 
 
-              <Route path="/create-log" element={<CreateLog />} />
+              <Route path="/create-log/:projectId" element={<CreateLog />} />
+              <Route path="/ppe-checklist" element={<PPEChecklist />} />
+
 
 
 

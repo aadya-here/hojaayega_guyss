@@ -1,21 +1,20 @@
-// ProjectView.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useVendor } from '../context/vendorContext';
 import supabase from '../supabase';
 import Title from '../components/Title';
 import Subheading from '../components/Subheading';
 import { Table, TableBody, TableRow, TableCell } from '@mui/material';
-import { Divider } from '@mui/joy';
+import { Button } from '@mui/joy';
+import AddIcon from '@mui/icons-material/Add';
 
 const ProjectView = () => {
     const { projectId } = useParams();
     const [projects, setProjects] = useState([]);
-    const { vendorId } = useVendor(); // Replace with the actual vendorId you want to use
+    const { vendorId } = useVendor();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log('Project ID:', projectId);
-
         const fetchProjects = async (vendorId) => {
             try {
                 const { data, error } = await supabase
@@ -69,9 +68,6 @@ const ProjectView = () => {
     return (
         <div className='bg-white pb-20 p-5 min-w-screen'>
             <div className="py-5 pb-1 mx-auto w-full sm:w-4/5 lg:w-70">
-                {/* <Title text="Project Details" /> */}
-
-                <br />
                 {projects.map(project => (
                     <div key={project.project_id} className="py-5">
                         <Title text={project.project_title} />
@@ -89,6 +85,19 @@ const ProjectView = () => {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="fixed bottom-20 right-5">
+                <Button
+                    sx={{ borderRadius: 100 }}
+                    variant="solid"
+                    color="primary"
+                    className="w-12 h-12 flex items-center justify-center p-0"
+                    onClick={() => { navigate(`/create-log/${projectId}`) }}
+                >
+                    <AddIcon />
+                    {/* <PlusCircleIcon className="text-blue-50" /> */}
+                </Button>
             </div>
         </div>
     );
