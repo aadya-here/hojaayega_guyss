@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ProjectView = () => {
-    const { projectId } = useSearchParams();
+    const { projectId } = useParams();
 
     useEffect(() => {
         console.log('Project ID:', projectId);

@@ -12,6 +12,9 @@ import BottomNavbar from './components/BottomNavbar';
 import FormsList from './pages/FormsList';
 import FormViewById from './pages/FormViewById';
 import ProjectView from './pages/ProjectView';
+import CreateLog from './pages/forms/daily_checklists/CreateLog';
+
+
 
 
 const App = () => {
@@ -33,6 +36,12 @@ const App = () => {
               <Route path="/forms-view" element={<FormsList />} />
               <Route path="/forms-view/:formName/:formId/:formLogId" element={<FormViewById />} />
               <Route path="/projects/:projectId" element={<ProjectView />} />
+
+
+              <Route path="/create-log" element={<CreateLog />} />
+
+
+
 
             </Routes>
           </VendorProvider>
