@@ -15,6 +15,7 @@ import ProjectView from './pages/ProjectViewById';
 import CreateLog from './pages/forms/daily_checklists/CreateLog';
 import Profile from './pages/Profile'
 import PPEChecklist from './pages/forms/daily_checklists/PPEChecklist';
+import ToolBoxTalk from './pages/forms/daily_checklists/ToolBoxTalk';
 
 
 
@@ -44,7 +45,9 @@ const App = () => {
 
 
               <Route path="/create-log/:projectId" element={<CreateLog />} />
-              <Route path="/ppe-checklist" element={<PPEChecklist />} />
+              <Route path="/create-log/:projectId/ppe-checklist/:logId" element={<PPEChecklist />} />
+              <Route path="/create-log/:projectId/tool-box-talk/:logId" element={<ToolBoxTalk />} />
+
 
 
 

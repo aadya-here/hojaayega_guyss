@@ -3,10 +3,10 @@ import Button from '@mui/joy/Button';
 
 const SecondaryButton = ({ onClick, text }) => {
     return (
-        <div className="flex justify-center mt-4 mb-8">
+        <div className="flex justify-center mt-0 mb-0">
             <Button
                 variant="outlined"
-                className="py-2 px-4 rounded w-full sm:w-full md:w-4/5 lg:w-full"
+                className="rounded w-full sm:w-full md:w-4/5 lg:w-3/5"
                 // Use outlined variant
                 sx={{
                     borderRadius: 5,

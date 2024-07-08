@@ -4,13 +4,22 @@ import InputField from "../../../components/InputField"; // Ensure this componen
 import { useVendor } from '../../../context/vendorContext'; // Adjust the import based on your hook location
 import supabase from '../../../supabase'; // Adjust the import based on your Supabase setup
 import locationIcon from '../../../assets/location.png'; // Adjust the import based on your assets location
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SubmitButton from "../../../components/PrimaryButton";
+import Accordion from '@mui/joy/Accordion';
+import AccordionDetails from '@mui/joy/AccordionDetails';
+import AccordionGroup from '@mui/joy/AccordionGroup';
+import AccordionSummary from '@mui/joy/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PPEChecklist from "./PPEChecklist";
+import Subheading from "../../../components/Subheading";
+import ToolBoxTalk from "./ToolBoxTalk";
+import SecondaryButton from "../../../components/SecondaryButton";
 
 const CreateLog = () => {
-    // const router = useRouter();
     const { vendorId, user_id } = useVendor();
     const { projectId } = useParams();
+    const navigate = useNavigate();
 
     const [workPermit, setWorkPermit] = useState('');
     const [sopNumber, setSopNumber] = useState('');
@@ -49,8 +58,6 @@ const CreateLog = () => {
         }
     };
 
-    // console.log(projectId)
-
     return (
         <div className="w-full min-h-screen bg-blue-50 p-8">
             <div className='items-center justify-center flex flex-col'>
@@ -62,9 +69,17 @@ const CreateLog = () => {
                 <InputField icon={locationIcon} placeholder="Valid Till" handleInputChange={setValidTill} type="date" />
             </div>
             <SubmitButton text="Add Log" handleSubmit={addLog} />
+
+            <Subheading text="Daily Checklists" />
+            <SecondaryButton text="PPE Checklist" onClick={() => navigate(`ppe-checklist/${logId}`)} />
+            <br></br>
+            <SecondaryButton text="Tool Box Talk" onClick={() => navigate(`tool-box-talk/${logId}`)} />
+
+            <br></br>
+            <br></br>
+
         </div>
     );
-
 };
 
 export default CreateLog;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, Sheet, Modal, Typography, IconButton } from '@mui/joy'; // Assuming these are Material UI components
 import Tooltip from '@mui/material/Tooltip'; // Import Tooltip from @mui/material
-import RefreshIcon from '@mui/icons-material/Refresh'; // Import RefreshIcon from @mui/icons-material
+import RefreshIcon from '@mui/icons-material/Refresh'; // Import RefreshIcon from '@mui/icons-material
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import ArrowBackIcon from @mui/icons-material
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; // Import ArrowForwardIcon from @mui/icons-material
 import supabase from '../../../supabase'; // Assuming you have a supabase instance imported
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useVendor } from '../../../context/vendorContext';
 import { getUserId } from '../../../helpers/fetchUser';
 import InputField from '../../../components/InputField';
@@ -16,7 +18,8 @@ import SecondaryButton from '../../../components/SecondaryButton';
 
 const PPEChecklist = () => {
     const { vendorId } = useVendor();
-    const { logId, projectId } = useParams();
+    const { projectId, logId } = useParams();
+
 
     const [entriesList, setEntriesList] = useState([]);
 
@@ -28,6 +31,8 @@ const PPEChecklist = () => {
     const [name, setName] = useState('');
     const [remarks, setRemarks] = useState('');
     const [userId, setUserId] = useState('');
+
+    const navigate = useNavigate();
 
     const ppe_items = [
         { key: 'helmet', value: 'Helmet' },
@@ -108,7 +113,7 @@ const PPEChecklist = () => {
             const { data, error } = await supabase
                 .from('ppe_checklist')
                 .select('*')
-                .eq('log_id', 28)
+                .eq('log_id', logId)
                 .eq('vendor_id', vendorId)
                 .eq('created_on', today);
 
@@ -152,7 +157,15 @@ const PPEChecklist = () => {
 
     return (
         <div className="w-full min-h-screen bg-blue-50 p-8">
-            <Title text="PPE Checklist" />
+            <div className="flex justify-between items-center">
+                <IconButton onClick={() => navigate(-1)}>
+                    <ArrowBackIcon />
+                </IconButton>
+                <Title text="PPE Checklist" />
+                <IconButton onClick={() => navigate(`/create-log/${projectId}/tool-box-talk/${logId}`)}>
+                    <ArrowForwardIcon />
+                </IconButton>
+            </div>
 
             <div className="w-full m-auto">
                 <Sheet variant="outlined">
@@ -221,7 +234,7 @@ const PPEChecklist = () => {
                     <SubmitButton text="Add" handleSubmit={handleAdd} />
                 </div>
             </Modal>
-
+            <br></br>
             <SecondaryButton onClick={() => setModalVisible(true)} text="Add Entries" />
 
             <div className="flex items-center justify-between">

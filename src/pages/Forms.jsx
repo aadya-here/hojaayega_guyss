@@ -45,21 +45,17 @@ const Forms = () => {
                             Job Specific Checklist
                         </AccordionSummary>
                         <AccordionDetails>
-                            <SecondaryButton onClick={() => setActiveForm('BrickMasonry')}>
-                                Brick Masonry QC Form
-                            </SecondaryButton>
-                            <SecondaryButton onClick={() => setActiveForm('MicroConcrete')}>
-                                Micro Concrete QC Form
-                            </SecondaryButton>
-                            <SecondaryButton onClick={() => setActiveForm('Mortar')}>
-                                Mortar Plastering QC Form
-                            </SecondaryButton>
-                            <SecondaryButton onClick={() => setActiveForm('Painting')}>
-                                Painting QC Form
-                            </SecondaryButton>
-                            <SecondaryButton onClick={() => setActiveForm('Plastering')}>
-                                Plastering QC Form
-                            </SecondaryButton>
+                            <SecondaryButton onClick={() => setActiveForm('BrickMasonry')} text=" Brick Masonry QC Form" />
+                            <SecondaryButton onClick={() => setActiveForm('MicroConcrete')} text="  Micro Concrete QC Form" />
+
+
+                            <SecondaryButton onClick={() => setActiveForm('Mortar')} text="Mortar Plastering QC Form" />
+
+
+                            <SecondaryButton onClick={() => setActiveForm('Painting')} text=" Painting QC Form" />
+
+                            <SecondaryButton onClick={() => setActiveForm('Plastering')} text="Plastering QC Form" />
+
                         </AccordionDetails>
                     </Accordion>
                 </AccordionGroup>
