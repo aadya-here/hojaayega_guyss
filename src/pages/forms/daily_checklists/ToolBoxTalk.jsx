@@ -18,7 +18,7 @@ const ToolBoxTalk = () => {
     const { projectId, logId } = useParams();
     const navigate = useNavigate();
 
-    console.log(projectId, logId);
+    // console.log(projectId, logId);
 
 
     const [sopNumber, setSopNumber] = useState('');
@@ -121,7 +121,7 @@ const ToolBoxTalk = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Title text="Tool Box Talk" />
-                <IconButton onClick={() => navigate(`/create-log/${projectId}/tool-box-talk/${logId}`)}>
+                <IconButton onClick={() => navigate(`/create-log/${projectId}/first-aid/${logId}`)}>
                     <ArrowForwardIcon />
                 </IconButton>
             </div>
@@ -161,7 +161,7 @@ const ToolBoxTalk = () => {
                 </div>
 
                 <div
-                    className="my-2 p-4 bg-white shadow-md rounded-md flex items-center space-x-4 w-full sm:w-4/5 md:w-4/5 lg:w-full"
+                    className="my-1 p-2 bg-white shadow-md rounded-md flex items-center space-x-4 w-full sm:w-4/5 md:w-4/5 lg:w-full"
                     style={{ maxWidth: '600px' }}
                 >
                     <strong>Stripes</strong>
