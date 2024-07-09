@@ -1,16 +1,17 @@
 {
   "name": "CPMS Vendor Partner",
   "short_name": "CPMS-V",
-  "theme_color": "#000",
-  "background_color": "#000",
-  "display": "browser",
+  "theme_color": "#031032",
+  "background_color": "#031032",
+  "display": "standalone",
+  "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
   "icons": [
     {
-      "src": "maskable.png",
+      "src": "maskable_icon.png",
       "sizes": "196x196",
-      "type": "image/png",
+      "type": "image/x-icon",
       "purpose": "any maskable"
     },
     {
@@ -24,13 +25,13 @@
       "sizes": "192x192"
     },
     {
-      "src": "logo256.jpg",
-      "type": "image/jpg",
+      "src": "logo256.png",
+      "type": "image/png",
       "sizes": "256x256"
     },
     {
-      "src": "logo384.jpg",
-      "type": "image/jpg",
+      "src": "logo384.png",
+      "type": "image/png",
       "sizes": "384x384"
     },
     {
