@@ -12,56 +12,64 @@ const formatEntry = (entry) => {
 
 const PPEEntryCard = ({ entry, onEdit, onDelete }) => {
     return (
-        <Card
-            size="md"
-            variant="outlined"
+        <Box
             sx={{
-                margin: '10px',
-                padding: '16px',
+                display: 'flex',
+                justifyContent: 'center', // Center horizontally
                 width: '100%',
-                maxWidth: '550px',
-                '@media (max-width: 600px)': {
-                    padding: '8px',
-                    margin: '5px',
-                    // width: '100%',
-                    maxWidth: '400px',
-                }
+                marginBottom: '10px', // Adjust margin as needed
             }}
         >
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography level="h5" sx={{ wordBreak: 'break-word' }}>{entry.name}</Typography>
-                <Typography>{entry.p_no}</Typography>
-            </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-                <Box display="flex" flexWrap="wrap" gap={1}>
-                    {entry.ppe_items.map((item, index) => (
-                        <Chip key={index} size="sm" variant="outlined">
-                            {formatEntry(item)}
-                        </Chip>
-                    ))}
+            <Card
+                size="md"
+                variant="outlined"
+                sx={{
+                    width: '100%', // Take full width of the container
+                    maxWidth: '550px',
+                    marginX: 'auto',
+                    marginTop: '5px', // Center horizontally
+                    padding: '14px',
+                    '@media (max-width: 600px)': {
+                        padding: '8px',
+                        maxWidth: '350px',
+                    }
+                }}
+            >
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Typography level="h5" sx={{ wordBreak: 'break-word' }}>{entry.name}</Typography>
+                    <Typography>{entry.p_no}</Typography>
                 </Box>
-                <Box display="flex" gap={1}>
-                    {/* <Tooltip title="Edit">
-                        <Button
-                            size="sm"
-                            variant="none"
-                            onClick={() => onEdit(entry)}
-                        >
-                            <PencilIcon className="size-4 text-blue-850" />
-                        </Button>
-                    </Tooltip> */}
-                    <Tooltip title="Delete">
-                        <Button
-                            size="sm"
-                            variant="none"
-                            onClick={() => onDelete(entry)}
-                        >
-                            <TrashIcon className="size-4 text-blue-850" />
-                        </Button>
-                    </Tooltip>
+                <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+                    <Box display="flex" flexWrap="wrap" gap={1}>
+                        {entry.ppe_items.map((item, index) => (
+                            <Chip key={index} size="sm" variant="outlined">
+                                {formatEntry(item)}
+                            </Chip>
+                        ))}
+                    </Box>
+                    <Box display="flex" gap={1}>
+                        {/* <Tooltip title="Edit">
+                            <Button
+                                size="sm"
+                                variant="none"
+                                onClick={() => onEdit(entry)}
+                            >
+                                <PencilIcon className="size-4 text-blue-850" />
+                            </Button>
+                        </Tooltip> */}
+                        <Tooltip title="Delete">
+                            <Button
+                                size="sm"
+                                variant="none"
+                                onClick={() => onDelete(entry)}
+                            >
+                                <TrashIcon className="size-4 text-blue-850" />
+                            </Button>
+                        </Tooltip>
+                    </Box>
                 </Box>
-            </Box>
-        </Card>
+            </Card>
+        </Box>
     );
 };
 

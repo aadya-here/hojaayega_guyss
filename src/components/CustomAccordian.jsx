@@ -6,6 +6,7 @@ import Typography from '@mui/joy/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const CustomAccordion = ({ title, content, isExpanded, onToggle }) => (
+
     <Accordion expanded={isExpanded} onChange={onToggle} className="border rounded-lg">
         <AccordionSummary className="bg-blue-100 hover:bg-blue-300" expandIcon={<ExpandMoreIcon />}>
             <Typography className="font-semibold">{title}</Typography>

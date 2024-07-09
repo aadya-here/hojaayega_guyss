@@ -8,7 +8,9 @@ import { Card, CardContent } from '@mui/material';
 import CustomAccordion from '../components/CustomAccordian';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'; // Adjust import based on your Material-UI version
 import TableComponent from '../components/TableComponent';
-
+import Title from '../components/Title';
+import Subheading from '../components/Subheading'
+import PPEEntryCard from '../components/PPECard';
 
 const LogView = () => {
     const { logId } = useParams();
@@ -20,8 +22,13 @@ const LogView = () => {
 
     const [firstAidForms, setFirstAidForms] = useState([]);
     const [fimForms, setFimForms] = useState([]);
+    const [ppeChecklist, setPpeChecklist] = useState([]);
+
     const [isFirstAidExpanded, setIsFirstAidExpanded] = useState(false);
     const [isFIMExpanded, setIsFIMExpanded] = useState(false);
+    const [isPPEExpanded, setIsPPEExpanded] = useState(false);
+
+    const [projectName, setProjectName] = useState('');
 
 
 
@@ -31,6 +38,8 @@ const LogView = () => {
 
     const fetchLogInfo = async () => {
         try {
+            setLoading(true);  // Ensure loading is set to true when starting the fetch process
+
             const { data, error } = await supabase
                 .from('logs')
                 .select('*')
@@ -40,10 +49,40 @@ const LogView = () => {
 
             if (error) throw error;
             setLogInfo(data);
+
+            const { data: projectData, error: projectError } = await supabase
+                .from('projects')
+                .select('project_title')
+                .eq('project_id', data.project_id);
+
+            if (projectError) throw projectError;
+
+
+            if (projectData && projectData.length > 0) {
+                setProjectName(projectData[0].project_title);
+            } else {
+                setProjectName(null);
+            }
+
         } catch (error) {
             console.error('Error fetching log info:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+
+    const fetchPpeChecklist = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('ppe_checklist')
+                .select('*')
+                .eq('log_id', logId);
+
+            if (error) throw error;
+            setPpeChecklist(data);
+        } catch (error) {
+            console.error('Error fetching PPE checklist:', error);
         }
     };
 
@@ -56,16 +95,8 @@ const LogView = () => {
                 .select('*')
                 .eq('log_id', logId)
                 .single();
-
-            // const parsedData = data.map(form => ({
-            //     ...form,
-            //     reminders: JSON.parse(form.reminders),
-            // }));
-
-
             if (error) throw error;
             setToolboxTalk(data);
-            console.log(toolboxTalk)
         } catch (error) {
             console.error('Error fetching Toolbox Talk:', error);
         }
@@ -100,6 +131,11 @@ const LogView = () => {
             }));
 
             setFimForms(parsedData);
+
+
+
+
+
         } catch (error) {
             console.error('Error fetching FIM Forms:', error);
         }
@@ -119,18 +155,36 @@ const LogView = () => {
     }
 
     return (
-        <div>
-            <Card variant="outlined">
-                <CardContent>
-                    <Typography variant="h4">{logInfo?.project_title}</Typography>
-                    <Typography variant="body1">Log ID: {logId}</Typography>
-                    <Typography variant="body1">Created On: {new Date(logInfo?.created_on).toLocaleDateString('en-GB')}</Typography>
-                    <Typography variant="body1">Vendor ID: {vendorId}</Typography>
-                </CardContent>
-            </Card>
-            <div className='flex flex-col items-center p-4'>
+        <div className='flex flex-col items-center justify-center min-h-screen pb-20'>
 
-                <AccordionGroup color="primary" size="md" variant="plain" disableDivider sx={{ maxWidth: 800 }}>
+            <Title text={`Log ${logId} : ${projectName}`} />
+
+            <Subheading text={`Created On: ${new Date(logInfo?.created_on).toLocaleDateString('en-GB')}`} />
+
+
+            <div className='flex items-center justify-center w-3/4 p-0'>
+                {logInfo ? (
+                    <TableComponent data={logInfo} />
+                ) : (
+                    <Typography>No Data available</Typography>
+                )}
+            </div>
+
+            <div className='flex flex-col items-center p-4 w-full'>
+
+                <AccordionGroup color="primary" size="md" variant="plain" disableDivider sx={{ width: '95%', paddingX: 0, maxWidth: 800 }}>
+
+                    <CustomAccordion
+                        title="PPE Checklist"
+                        isExpanded={isPPEExpanded}
+                        onToggle={() => handleAccordionToggle(isPPEExpanded, setIsPPEExpanded, fetchPpeChecklist)}
+                        content={
+                            ppeChecklist.map(ppe => (
+                                <PPEEntryCard entry={ppe} />
+                            ))
+                        }
+                    />
+
                     <CustomAccordion
                         title="Toolbox Talk"
                         isExpanded={isTBExpanded}

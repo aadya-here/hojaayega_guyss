@@ -69,7 +69,10 @@ const SignUpPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const user = await signUpWithSupabase(email, password);
+      const response = await signUpWithSupabase(email, password);
+      console.log(response); // Check the structure of the response to verify
+
+      const { user } = response;
 
       const { data, error: insertError } = await supabase
         .from('vendor_user')
@@ -78,11 +81,11 @@ const SignUpPage = () => {
             email,
             created_at: moment().format(),
             vendor_id: selectedVendor,
-            name,
+            name: name,
             gatepass: parseInt(gpNo),
             mobile: parseInt(mobile),
             user_id: user.id,
-            role,
+            role: role,
           }
         ])
         .select();
@@ -99,18 +102,6 @@ const SignUpPage = () => {
     }
   };
 
-  // const InputMUI = ({ handleInputChange = () => { }, placeholder = '', value = '', type = 'text' }) => (
-  //   <div className="my-3">
-  //     <Input
-  //       placeholder={placeholder}
-  //       variant="soft"
-  //       color="primary"
-  //       onChange={(e) => handleInputChange(e.target.value)}
-  //       value={value}
-  //       type={type}
-  //     />
-  //   </div>
-  // );
 
   const inputFields = [
     {
@@ -141,7 +132,14 @@ const SignUpPage = () => {
       value: password,
       handleInputChange: setPassword,
       type: 'password'
+    },
+    {
+      placeholder: 'Role',
+      value: role,
+      handleInputChange: setRole,
+      type: 'text'
     }
+
   ];
 
   return (

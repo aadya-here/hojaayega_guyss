@@ -1,20 +1,23 @@
-import { useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Avatar,
-  Badge,
   Container,
   IconButton,
   styled,
   Typography,
+  TextField,
 } from "@mui/material";
-import Input from "@mui/joy/Input";
 import EditIcon from "@mui/icons-material/Edit";
-import SubmitButton from "../components/PrimaryButton";
+import SaveIcon from "@mui/icons-material/Save";
 import noimg from "../assets/noimg.png";
+import { getUserId } from "../helpers/fetchUser";
+import supabase from "../supabase";
+import SubmitButton from "../components/PrimaryButton";
+import { Input } from "@mui/joy";
 
 const FlexContainer = styled("div")({
   display: "flex",
-  paddingInline: "10rem",
+  paddingInline: "3rem",
   justifyContent: "space-between",
   alignItems: "center",
   height: "100%",
@@ -23,6 +26,7 @@ const FlexContainer = styled("div")({
   "@media (max-width: 840px)": {
     flexDirection: "column",
     justifyContent: "center",
+    paddingInline: "1rem",
   },
 });
 
@@ -43,7 +47,7 @@ const ImageContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  gap: "1rem",
+  gap: "0",
   position: "relative",
 });
 
@@ -56,12 +60,25 @@ const ProfileImg = styled(Avatar)({
 const FormContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
-  gap: "16px",
+  gap: "12px",
+  width: "70%",
+  "@media (max-width: 840px)": {
+    width: "100%",
+  },
 });
 
 const Profile = () => {
   const [profileImg, setProfileImg] = useState(null);
   const fileInputRef = useRef(null);
+  const [isEditable, setIsEditable] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    gatepass: "",
+    role: "",
+    vendor_id: "",
+  });
 
   const handleEditClick = () => {
     if (fileInputRef.current) {
@@ -81,6 +98,85 @@ const Profile = () => {
     }
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const userId = await getUserId(); // Wait for userId promise to resolve
+
+      if (userId) {
+        const { data, error } = await supabase
+          .from("vendor_user")
+          .select("*")
+          .eq("user_id", userId);
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data && data.length > 0) {
+          const userData = data[0];
+          setUserDetails({
+            name: userData.name || "",
+            email: userData.email || "",
+            mobile: userData.mobile || "",
+            gatepass: userData.gatepass || "",
+            role: userData.role || "",
+            vendor_id: userData.vendor_id || "",
+          });
+        }
+      } else {
+        console.log("userId is undefined or null");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const handleInputChange = (field, value) => {
+    setUserDetails((prevDetails) => ({
+      ...prevDetails,
+      [field]: value,
+    }));
+  };
+  const handleUpdate = async () => {
+    try {
+      const userId = await getUserId();
+      if (userId) {
+        console.log("Updating user details:", userDetails);
+        const { data, error } = await supabase
+          .from("vendor_user")
+          .update(userDetails)
+          .eq("user_id", userId);
+
+        if (error) {
+          throw new Error(error.message);
+        }
+        alert("Profile updated successfully!");
+        setIsEditable(false);
+        console.log("Update response:", data);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const InputField = ({ placeholder, value, disabled, onChange }) => {
+    return (
+      <div style={{ marginBottom: "16px" }}>
+        <Input
+          placeholder={placeholder}
+          variant="outlined"
+          value={value}
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </div>
+    );
+  };
+
   return (
     <Container maxWidth="md" className="h-screen">
       <FlexContainer>
@@ -98,19 +194,52 @@ const Profile = () => {
           />
         </ImageContainer>
         <FormContainer>
-          <Typography variant="h6" component="h2" className="!font-bold">
-            Your Information
-          </Typography>
-          <form>
-            <Input placeholder="Name" variant="outlined" />
-            <div style={{ marginBottom: "16px" }}></div>
-            <Input placeholder="Email" variant="outlined" />
-            <div style={{ marginBottom: "16px" }}></div>
-            <Input placeholder="Phone Number" variant="outlined" />
-            <div style={{ marginBottom: "16px" }}></div>
-            <Input placeholder="Password" variant="outlined" type="password" />
-            <div style={{ marginBottom: "20px" }}></div>
-            <SubmitButton text="Update Profile" />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6" component="h2" className="!font-bold">
+              Your Information
+            </Typography>
+            <IconButton onClick={() => {
+              if (isEditable) {
+                handleUpdate();
+              } else {
+                setIsEditable(true);
+              }
+            }}>
+              {isEditable ? <SaveIcon /> : <EditIcon />}
+            </IconButton>
+          </div>
+          <form className="w-full">
+            <InputField
+              placeholder="Name"
+              value={userDetails.name}
+              disabled={!isEditable}
+              onChange={(value) => handleInputChange("name", value)}
+            />
+            <InputField
+              placeholder="Email"
+              value={userDetails.email}
+              disabled={!isEditable}
+              onChange={(value) => handleInputChange("email", value)}
+            />
+            <InputField
+              placeholder="Phone Number"
+              value={userDetails.mobile}
+              disabled={!isEditable}
+              onChange={(value) => handleInputChange("mobile", value)}
+            />
+            <InputField
+              placeholder="Vendor ID"
+              value={userDetails.vendor_id}
+              disabled={!isEditable}
+              onChange={(value) => handleInputChange("vendor_id", value)}
+            />
+            <InputField
+              placeholder="Gate Pass No"
+              value={userDetails.gatepass}
+              disabled={!isEditable}
+              onChange={(value) => handleInputChange("gatepass", value)}
+            />
+            {isEditable && <SubmitButton text="Update Profile" onClick={handleUpdate} />}
           </form>
         </FormContainer>
       </FlexContainer>
