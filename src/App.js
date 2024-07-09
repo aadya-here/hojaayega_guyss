@@ -32,6 +32,7 @@ const App = () => {
         <div>
           <VendorProvider initialVendorId={null}>
             <Routes>
+              <Route path='/' element={<Home />} />
               <Route path="/signin" element={<SignInPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/home" element={<Home />} />
