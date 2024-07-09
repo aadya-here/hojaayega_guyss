@@ -74,7 +74,7 @@ const FirstAidForm = () => {
                         <ArrowBackIcon />
                     </IconButton>
                     <Title text="First Aid Form" />
-                    <IconButton onClick={() => navigate(`/create-log/${projectId}/tool-box-talk/${logId}`)}>
+                    <IconButton onClick={() => navigate(`/create-log/${projectId}/fim-form/${logId}`)}>
                         <ArrowForwardIcon />
                     </IconButton>
                 </div>

@@ -17,6 +17,10 @@ import Profile from './pages/Profile'
 import PPEChecklist from './pages/forms/daily_checklists/PPEChecklist';
 import ToolBoxTalk from './pages/forms/daily_checklists/ToolBoxTalk';
 import FirstAidForm from './pages/forms/daily_checklists/FirstAid';
+import FIMForm from './pages/forms/daily_checklists/FIMReq';
+import Logs from './pages/LogsList';
+import LogView from './pages/LogViewById';
+
 
 
 
@@ -43,12 +47,18 @@ const App = () => {
                 element={<FormViewById />}
               />
               <Route path="/projects/:projectId" element={<ProjectView />} />
+              <Route path="/logs" element={<Logs />} />
+              <Route path="/logs/:logId" element={<LogView />} />
+
+
 
 
               <Route path="/create-log/:projectId" element={<CreateLog />} />
               <Route path="/create-log/:projectId/ppe-checklist/:logId" element={<PPEChecklist />} />
               <Route path="/create-log/:projectId/tool-box-talk/:logId" element={<ToolBoxTalk />} />
               <Route path="/create-log/:projectId/first-aid/:logId" element={<FirstAidForm />} />
+              <Route path="/create-log/:projectId/fim-form/:logId" element={<FIMForm />} />
+
 
 
 

@@ -43,7 +43,7 @@ export default function BottomNavbar() {
                     label="Logs"
                     icon={<ListBulletIcon className="size-5" />}
                     sx={{ justifyContent: 'center' }}
-                    onClick={() => { navigate("/test") }}
+                    onClick={() => { navigate("/logs") }}
                 />
                 <BottomNavigationAction
                     label="Forms"
