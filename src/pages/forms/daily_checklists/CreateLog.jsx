@@ -45,16 +45,29 @@ const CreateLog = () => {
 
             if (error) {
                 console.error('Error adding log:', error);
-                return;
+                return null;
             }
 
             const logID = data[0].log_id;
             setLogId(logID);
             alert('Log added successfully');
             console.log('Log added with ID:', logID);
+            return logID;
         } catch (error) {
             alert('Unexpected error:', error.message);
             console.error('Unexpected error:', error);
+            return null;
+        }
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const logID = await addLog();
+            if (logID) {
+                navigate(`ppe-checklist/${logID}`);
+            }
+        } catch (error) {
+            alert('Unexpected error:', error.message);
         }
     };
 
@@ -68,16 +81,9 @@ const CreateLog = () => {
                 <InputField icon={locationIcon} placeholder="Valid From" handleInputChange={setValidFrom} type="date" />
                 <InputField icon={locationIcon} placeholder="Valid Till" handleInputChange={setValidTill} type="date" />
             </div>
-            <SubmitButton text="Add Log" handleSubmit={addLog} />
-
-            <Subheading text="Daily Checklists" />
-            <SecondaryButton text="PPE Checklist" onClick={() => navigate(`ppe-checklist/${logId}`)} />
-            <br></br>
-            <SecondaryButton text="Tool Box Talk" onClick={() => navigate(`tool-box-talk/${logId}`)} />
-
-            <br></br>
-            <br></br>
-
+            <SubmitButton text="Add Log" handleSubmit={handleSubmit} />
+            <br />
+            <br />
         </div>
     );
 };

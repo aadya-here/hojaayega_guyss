@@ -9,6 +9,7 @@ import { useVendor } from '../context/vendorContext';
 import { Divider } from '@mui/joy';
 
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import TableComponent from '../components/TableComponent';
 
 function FormsView() {
     const { formName, formId, formLogId } = useParams();
@@ -162,7 +163,6 @@ function FormsView() {
     }
 
     return (
-
         <div className='bg-white pb-20 p-5 min-w-screen'>
             <div className="py-5 pb-1 mx-auto w-full sm:w-4/5 lg:w-70">
                 <div className="flex justify-between mb-4">
@@ -184,48 +184,17 @@ function FormsView() {
 
                 <Subheading text="Form Details" />
 
-                {/* Adjusted table widths */}
-                <div className="w-full overflow-x-auto">
-                    <Table className="w-full sm:w-4/5 lg:w-3/5">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Field</TableCell>
-                                <TableCell>Value</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{formatFieldName(row.name)}</TableCell>
-                                    <TableCell>{row.value}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
+                {/* Use TableComponent for Form Details */}
+                <TableComponent
+                    data={Object.fromEntries(rows.map(row => [row.name, row.value]))}
+                />
 
                 {approvalData && (
                     <div className="py-5 pb-10">
                         <Subheading text="Approval Details" />
 
-                        <div className="w-full overflow-x-auto">
-                            <Table className="w-full sm:w-90 lg:w-75">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Field</TableCell>
-                                        <TableCell>Value</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {Object.entries(approvalData).map(([key, value], index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{formatFieldName(key)}</TableCell>
-                                            <TableCell>{value !== null ? value.toString() : 'N/A'}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </div>
+                        {/* Use TableComponent for Approval Details */}
+                        <TableComponent data={approvalData} />
                     </div>
                 )}
             </div>
