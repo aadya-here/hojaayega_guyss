@@ -1,23 +1,19 @@
 import React, { useState } from "react";
-import Title from "../../../components/Title";
-import InputField from "../../../components/InputField"; // Ensure this component exists
-import { useVendor } from '../../../context/vendorContext'; // Adjust the import based on your hook location
-import supabase from '../../../supabase'; // Adjust the import based on your Supabase setup
-import locationIcon from '../../../assets/location.png'; // Adjust the import based on your assets location
+import Title from "../../../components/ui_components/Title";
+import InputField from "../../../components/ui_components/InputField";
+import { useVendor } from '../../../context/vendorContext';
+import supabase from '../../../supabase';
+import locationIcon from '../../../assets/location.png';
 import { useNavigate, useParams } from "react-router-dom";
-import SubmitButton from "../../../components/PrimaryButton";
-import Accordion from '@mui/joy/Accordion';
-import AccordionDetails from '@mui/joy/AccordionDetails';
-import AccordionGroup from '@mui/joy/AccordionGroup';
-import AccordionSummary from '@mui/joy/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PPEChecklist from "./PPEChecklist";
-import Subheading from "../../../components/Subheading";
-import ToolBoxTalk from "./ToolBoxTalk";
-import SecondaryButton from "../../../components/SecondaryButton";
+import SubmitButton from "../../../components/ui_components/PrimaryButton";
+import SecondaryButton from "../../../components/ui_components/SecondaryButton";
+import AddPhoto from "../../../components/AddPhoto";
+import { Divider } from "@mui/material";
+import { useAuth } from "../../../context/authContext";
 
 const CreateLog = () => {
-    const { vendorId, user_id } = useVendor();
+    const { vendorId } = useVendor();
+    const { userId } = useAuth();
     const { projectId } = useParams();
     const navigate = useNavigate();
 
@@ -27,6 +23,8 @@ const CreateLog = () => {
     const [validFrom, setValidFrom] = useState(new Date());
     const [validTill, setValidTill] = useState(new Date());
     const [logId, setLogId] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState(null);
+    const [showAddPhoto, setShowAddPhoto] = useState(false);
 
     const addLog = async () => {
         try {
@@ -38,7 +36,7 @@ const CreateLog = () => {
                     valid_from: validFrom.toISOString(),
                     valid_till: validTill.toISOString(),
                     num_workers: parseInt(numberOfWorkers),
-                    created_by: user_id,
+                    created_by: userId,
                     created_on: new Date()
                 }
             ]).select();
@@ -64,11 +62,23 @@ const CreateLog = () => {
         try {
             const logID = await addLog();
             if (logID) {
-                navigate(`ppe-checklist/${logID}`);
+                setShowAddPhoto(true);  // Show AddPhoto component after log is created
             }
         } catch (error) {
             alert('Unexpected error:', error.message);
         }
+    };
+
+    const handlePhotoAdded = (url) => {
+        setPhotoUrl(url);
+    };
+
+    const handleAddPhotoClick = () => {
+        setShowAddPhoto(!showAddPhoto);
+    };
+
+    const handleContinue = () => {
+        navigate(`ppe-checklist/${logId}`);
     };
 
     return (
@@ -82,6 +92,25 @@ const CreateLog = () => {
                 <InputField icon={locationIcon} placeholder="Valid Till" handleInputChange={setValidTill} type="date" />
             </div>
             <SubmitButton text="Add Log" handleSubmit={handleSubmit} />
+
+
+
+            {logId && (
+                <div className="flex items-center justify-center">
+                    <div className='w-4/5 max-w-md flex flex-col justify-center'>
+                        {showAddPhoto && (
+                            <AddPhoto
+                                logId={logId}
+                                userId={userId}
+                                folderPath={`logs`}
+                                onPhotoAdded={handlePhotoAdded}
+                                tag={`log`}
+                            />
+                        )}
+                        <SecondaryButton text="Continue to PPE Checklist" onClick={handleContinue} />
+                    </div>
+                </div>
+            )}
             <br />
             <br />
         </div>

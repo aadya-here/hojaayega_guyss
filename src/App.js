@@ -23,6 +23,7 @@ import PPEChecklist from './pages/forms/daily_checklists/PPEChecklist';
 import ToolBoxTalk from './pages/forms/daily_checklists/ToolBoxTalk';
 import FirstAidForm from './pages/forms/daily_checklists/FirstAid';
 import FIMForm from './pages/forms/daily_checklists/FIMReq';
+import AddPhoto from './components/AddPhoto';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuth, vendorId } = useAuth(); // Assuming you have vendorId in AuthContext
@@ -41,8 +42,8 @@ const protectedRoutes = [
   { path: '/projects', element: <Projects /> },
   { path: '/projects/:projectId', element: <ProjectView /> },
   { path: '/forms', element: <Forms /> },
-  { path: '/forms/view', element: <FormsList /> },
-  { path: '/forms/view/:formName/:formId/:formLogId', element: <FormViewById /> },
+  { path: '/forms-view', element: <FormsList /> },
+  { path: '/forms-view/:formName/:formId/:formLogId', element: <FormViewById /> },
   { path: '/logs', element: <Logs /> },
   { path: '/logs/:logId', element: <LogView /> },
   { path: '/create-log/:projectId', element: <CreateLog /> },

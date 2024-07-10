@@ -8,13 +8,13 @@ import supabase from '../../../supabase'; // Assuming you have a supabase instan
 import { useNavigate, useParams } from 'react-router-dom';
 import { useVendor } from '../../../context/vendorContext';
 import { getUserId } from '../../../helpers/fetchUser';
-import InputField from '../../../components/InputField';
-import SubmitButton from '../../../components/PrimaryButton';
+import InputField from '../../../components/ui_components/InputField';
+import SubmitButton from '../../../components/ui_components/PrimaryButton';
 import locationIcon from '../../../assets/location.png';
-import PPEEntryCard from '../../../components/PPECard';
-import Subheading from '../../../components/Subheading';
-import Title from '../../../components/Title';
-import SecondaryButton from '../../../components/SecondaryButton';
+import PPEEntryCard from '../../../components/info_cards/PPECard';
+import Subheading from '../../../components/ui_components/Subheading';
+import Title from '../../../components/ui_components/Title';
+import SecondaryButton from '../../../components/ui_components/SecondaryButton';
 
 const PPEChecklist = () => {
     const { vendorId } = useVendor();

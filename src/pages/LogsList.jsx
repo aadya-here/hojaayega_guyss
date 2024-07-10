@@ -4,9 +4,9 @@ import supabase from '../supabase'; // Adjust path as necessary
 import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router-dom for navigation
 import { CircularProgress, IconButton } from '@mui/material'; // Material-UI components
 import RefreshIcon from '@mui/icons-material/Refresh'; // Material-UI icon
-import Title from '../components/Title'; // Adjust path as necessary
-import Subheading from '../components/Subheading';
-import LogCard from '../components/LogCard';
+import Title from '../components/ui_components/Title'; // Adjust path as necessary
+import Subheading from '../components/ui_components/Subheading';
+import LogCard from '../components/info_cards/LogCard';
 
 const Logs = () => {
     const { vendorId } = useVendor();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import InputField from '../components/InputField';
+import InputField from '../components/ui_components/InputField';
 import locationIcon from "../assets/location.png";
-import CheckListItem from '../components/CheckListItem';
+import CheckListItem from '../components/ui_components/CheckListItem';
 
 export const Test = () => {
     const [projectID, setProjectID] = useState('');

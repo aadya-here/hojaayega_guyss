@@ -4,7 +4,7 @@ import { useVendor } from '../context/vendorContext'; // Assuming this is the co
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import supabase from '../supabase';
 import CommonAuth from '../components/CommonAuth';
-import SubmitButton from '../components/PrimaryButton';
+import SubmitButton from '../components/ui_components/PrimaryButton';
 import { Input } from '@mui/joy';
 import { useAuth } from '../context/authContext';
 

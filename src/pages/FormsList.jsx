@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import FormCard from '../components/FormCard';
-import Title from '../components/Title';
+import FormCard from '../components/info_cards/FormCard';
+import Title from '../components/ui_components/Title';
 import supabase from '../supabase';
 import { useVendor } from '../context/vendorContext';
 import { Button, Divider } from '@mui/joy';

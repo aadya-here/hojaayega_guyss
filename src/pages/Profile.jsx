@@ -12,10 +12,10 @@ import SaveIcon from "@mui/icons-material/Save";
 import noimg from "../assets/noimg.png";
 import { getUserId } from "../helpers/fetchUser";
 import supabase from "../supabase";
-import SubmitButton from "../components/PrimaryButton";
+import SubmitButton from "../components/ui_components/PrimaryButton";
 import { Input } from "@mui/joy";
 import { useAuth } from "../context/authContext";
-import SecondaryButton from "../components/SecondaryButton";
+import SecondaryButton from "../components/ui_components/SecondaryButton";
 import { useNavigate } from "react-router-dom";
 
 const FlexContainer = styled("div")({
@@ -240,6 +240,7 @@ const Profile = () => {
             </IconButton>
           </div>
           <form className="w-full">
+
             <InputField
               placeholder="Name"
               value={userDetails.name}

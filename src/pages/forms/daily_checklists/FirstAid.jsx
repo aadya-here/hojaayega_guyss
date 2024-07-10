@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import supabase from '../../../supabase';
-import InputField from '../../../components/InputField';
-import SubmitButton from '../../../components/PrimaryButton';
-import Title from '../../../components/Title';
+import InputField from '../../../components/ui_components/InputField';
+import SubmitButton from '../../../components/ui_components/PrimaryButton';
+import Title from '../../../components/ui_components/Title';
 import { useVendor } from '../../../context/vendorContext';
 import { Checkbox, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import DatePickerComponent from '../../../components/Datepicker';
+import DatePickerComponent from '../../../components/ui_components/Datepicker';
 
 const FirstAidForm = () => {
     const navigate = useNavigate();

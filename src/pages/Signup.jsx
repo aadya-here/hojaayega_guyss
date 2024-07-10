@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import CommonAuth from "../components/CommonAuth";
-import SubmitButton from "../components/PrimaryButton";
-import InputField from "../components/InputField";
+import SubmitButton from "../components/ui_components/PrimaryButton";
+// import InputField from "../components/ui_components/InputField";
 import supabase from "../supabase";
 import moment from "moment";
-import AuthField from "../components/AuthInput";
+import AuthField from "../components/ui_components/AuthInput";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

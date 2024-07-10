@@ -17,6 +17,9 @@ export default function BottomNavbar() {
                 bottom: 0,
                 left: 0,
                 right: 0,
+                // padding: 1,
+                zIndex: 100,
+
             }}
         >
             <BottomNavigation
@@ -31,6 +34,9 @@ export default function BottomNavbar() {
                     '& .MuiBottomNavigationAction-root': {
                         minWidth: 'auto', // Allows buttons to shrink
                     },
+                    // paddingY: 1,
+                    height: "auto",
+                    minHeight: 65
                 }}
             >
                 <BottomNavigationAction

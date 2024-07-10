@@ -8,8 +8,8 @@ import MicroConcreteForm from './forms/job_specific/MicroConcrete';
 import MortarPlasteringQCForm from './forms/job_specific/Mortar';
 import PaintingQCForm from './forms/job_specific/Painting';
 import PlasteringQCForm from './forms/job_specific/Plastering';
-import SecondaryButton from '../components/SecondaryButton'; // Ensure the correct path
-import Title from '../components/Title';
+import SecondaryButton from '../components/ui_components/SecondaryButton'; // Ensure the correct path
+import Title from '../components/ui_components/Title';
 
 const Forms = () => {
     const [activeForm, setActiveForm] = useState(null);

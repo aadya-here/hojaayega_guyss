@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import supabase from '../../../supabase';
-import InputField from '../../../components/InputField';
-import SubmitButton from '../../../components/PrimaryButton';
-import Title from '../../../components/Title';
+import InputField from '../../../components/ui_components/InputField';
+import SubmitButton from '../../../components/ui_components/PrimaryButton';
+import Title from '../../../components/ui_components/Title';
 import { useVendor } from '../../../context/vendorContext';
 import { IconButton, TextField, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';

@@ -4,13 +4,11 @@ import { useVendor } from '../context/vendorContext'; // Assuming this custom ho
 import AccordionGroup from '@mui/joy/AccordionGroup';
 import Typography from '@mui/joy/Typography';
 import supabase from '../supabase'; // Assuming supabase is configured
-import { Card, CardContent } from '@mui/material';
-import CustomAccordion from '../components/CustomAccordian';
-import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'; // Adjust import based on your Material-UI version
+import CustomAccordion from '../components/ui_components/CustomAccordian';
 import TableComponent from '../components/TableComponent';
-import Title from '../components/Title';
-import Subheading from '../components/Subheading'
-import PPEEntryCard from '../components/PPECard';
+import Title from '../components/ui_components/Title';
+import Subheading from '../components/ui_components/Subheading'
+import PPEEntryCard from '../components/info_cards/PPECard';
 
 const LogView = () => {
     const { logId } = useParams();
@@ -19,6 +17,8 @@ const LogView = () => {
     const [toolboxTalk, setToolboxTalk] = useState([]);
     const [isTBExpanded, setIsTBExpanded] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [photosLoading, setPhotosLoading] = useState(true);
+
 
     const [firstAidForms, setFirstAidForms] = useState([]);
     const [fimForms, setFimForms] = useState([]);
@@ -29,11 +29,13 @@ const LogView = () => {
     const [isPPEExpanded, setIsPPEExpanded] = useState(false);
 
     const [projectName, setProjectName] = useState('');
+    const [photos, setPhotos] = useState([]);
 
 
 
     useEffect(() => {
         fetchLogInfo();
+        fetchPhotos('log');
     }, [logId]);
 
     const fetchLogInfo = async () => {
@@ -141,6 +143,23 @@ const LogView = () => {
         }
     };
 
+    const fetchPhotos = async (tag) => {
+        try {
+            const { data, error } = await supabase
+                .from('photos')
+                .select('*')
+                .eq('log_id', logId)
+                .eq('tag', tag);
+
+            if (error) throw error;
+
+            setPhotos(data);
+        } catch (error) {
+            console.error('Error fetching photos:', error);
+        } finally {
+            setPhotosLoading(false);
+        }
+    };
 
 
     const handleAccordionToggle = (isExpanded, setIsExpanded, fetchFunction) => {
@@ -161,12 +180,25 @@ const LogView = () => {
 
             <Subheading text={`Created On: ${new Date(logInfo?.created_on).toLocaleDateString('en-GB')}`} />
 
-
             <div className='flex items-center justify-center w-3/4 p-0'>
                 {logInfo ? (
                     <TableComponent data={logInfo} />
                 ) : (
                     <Typography>No Data available</Typography>
+                )}
+
+            </div>
+
+            <div className='flex items-center justify-center w-3/4 p-0'>
+                {photos && photos.length > 0 ? (
+                    photos.map((photo) => (
+                        <div key={photo.id} className="flex flex-col items-center">
+                            <img src={photo.photo_url} alt={photo.caption} className="w-3/5 mt-5 rounded-lg shadow-md" />
+                            <Typography>{photo.caption}</Typography>
+                        </div>
+                    ))
+                ) : (
+                    <Typography>No Photos available</Typography>
                 )}
             </div>
 

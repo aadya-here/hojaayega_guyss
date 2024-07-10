@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import supabase from '../supabase';
 import React, { useEffect, useState } from 'react';
-import Title from '../components/Title';
-import Subheading from '../components/Subheading';
+import Title from '../components/ui_components/Title';
+import Subheading from '../components/ui_components/Subheading';
 
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'; // Adjust import based on your Material-UI version
 import { useVendor } from '../context/vendorContext';

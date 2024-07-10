@@ -5,7 +5,7 @@ import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
 import supabase from "../supabase"; // Make sure to import your supabase client
 import CommonAuth from "../components/CommonAuth";
-import SubmitButton from "../components/PrimaryButton";
+import SubmitButton from "../components/ui_components/PrimaryButton";
 import { useAuth } from "../context/authContext";
 
 const SignInPage = () => {

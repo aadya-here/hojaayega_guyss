@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useVendor } from '../context/vendorContext';
-import ProjectCard from '../components/ProjectCard';
+import ProjectCard from '../components/info_cards/ProjectCard';
 import supabase from '../supabase';
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
@@ -8,10 +8,11 @@ import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab, { tabClasses } from '@mui/joy/Tab';
 import TabPanel from '@mui/joy/TabPanel';
-import Title from '../components/Title';
-import Subheading from '../components/Subheading';
+import Title from '../components/ui_components/Title';
+import Subheading from '../components/ui_components/Subheading';
 import { useMediaQuery } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
+import SecondaryButton from '../components/ui_components/SecondaryButton';
 
 const ProjectsPage = () => {
     const { vendorId } = useVendor();
@@ -222,6 +223,7 @@ const ProjectsPage = () => {
                     </Box>
                 </Tabs>
             </Box>
+
         </div >
     );
 };

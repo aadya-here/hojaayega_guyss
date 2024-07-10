@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import supabase from '../../../supabase'; // Make sure to set up Supabase client
 
-import InputField from '../../../components/InputField';
-import CheckListItem from '../../../components/CheckListItem';
+import InputField from '../../../components/ui_components/InputField';
+import CheckListItem from '../../../components/ui_components/CheckListItem';
 import locationIcon from '../../../assets/location.png'; // Ensure you have these icons in your assets
-import SubmitButton from '../../../components/PrimaryButton';
+import SubmitButton from '../../../components/ui_components/PrimaryButton';
 import { useVendor } from '../../../context/vendorContext';
-import Title from '../../../components/Title';
+import Title from '../../../components/ui_components/Title';
 
 import { addFormLog } from '../../../helpers/addFormLog';
 import ProjectSelectionMenu from '../../../components/ProjectSelection';
