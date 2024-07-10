@@ -70,9 +70,27 @@ const FormContainer = styled("div")({
   },
 });
 
+const InputField = ({ placeholder, value, disabled, onChange }) => {
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  };
+
+  return (
+    <div style={{ marginBottom: "16px" }}>
+      <Input
+        placeholder={placeholder}
+        variant="outlined"
+        value={value}
+        disabled={disabled}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
+
 const Profile = () => {
-  const [profileImg, setProfileImg] = useState(null);
   const fileInputRef = useRef(null);
+  const [profileImg, setProfileImg] = useState(null);
   const [isEditable, setIsEditable] = useState(false);
   const [userDetails, setUserDetails] = useState({
     name: "",
@@ -83,9 +101,10 @@ const Profile = () => {
     vendor_id: "",
   });
 
-  const { userId, vendorId, isAuth, setAuth } = useAuth();
   const navigate = useNavigate();
-  console.log(userId, vendorId, isAuth);
+  const { userId, vendorId, isAuth, setAuth } = useAuth();
+
+  console.log("profile", { userId, vendorId, isAuth }, { isEditable });
 
   const handleEditClick = () => {
     if (fileInputRef.current) {
@@ -107,8 +126,6 @@ const Profile = () => {
 
   const fetchUserDetails = async () => {
     try {
-      // const userId = await getUserId(); // Wait for userId promise to resolve
-
       if (userId) {
         const { data, error } = await supabase
           .from("vendor_user")
@@ -144,9 +161,9 @@ const Profile = () => {
       [field]: value,
     }));
   };
+
   const handleUpdate = async () => {
     try {
-      // const userId = await getUserId();
       if (userId) {
         console.log("Updating user details:", userDetails);
         const { data, error } = await supabase
@@ -162,7 +179,7 @@ const Profile = () => {
         console.log("Update response:", data);
       }
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 
@@ -176,38 +193,18 @@ const Profile = () => {
       if (error) {
         throw error;
       }
-      // Clear local storage or any other state management values if necessary
-      localStorage.removeItem('vendorId');
-      setAuth(false); // Update isAuth state to false
-      navigate('/home');
-      console.log('User signed out successfully');
+      localStorage.removeItem("vendorId");
+      setAuth(false);
+      navigate("/home");
+      console.log("User signed out successfully");
     } catch (error) {
-      console.error('Error signing out:', error.message);
+      console.error("Error signing out:", error.message);
     }
-  };
-
-  const InputField = ({ placeholder, value, disabled, onChange }) => {
-    return (
-
-
-
-      <div style={{ marginBottom: "16px" }}>
-
-        <Input
-          placeholder={placeholder}
-          variant="outlined"
-          value={value}
-          disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      </div>
-    );
   };
 
   return (
     <div className="bg-blue-50 h-screen w-screen">
       <Container maxWidth="md" className="h-screen">
-
         <FlexContainer>
           <ImageContainer>
             <ProfileImg src={profileImg || noimg} />
@@ -230,18 +227,19 @@ const Profile = () => {
               <Typography variant="h6" component="h2" className="!font-bold">
                 Your Information
               </Typography>
-              <IconButton onClick={() => {
-                if (isEditable) {
-                  handleUpdate();
-                } else {
-                  setIsEditable(true);
-                }
-              }}>
+              <IconButton
+                onClick={() => {
+                  if (isEditable) {
+                    handleUpdate();
+                  } else {
+                    setIsEditable(true);
+                  }
+                }}
+              >
                 {isEditable ? <SaveIcon /> : <EditIcon />}
               </IconButton>
             </div>
             <form className="w-full">
-
               <InputField
                 placeholder="Name"
                 value={userDetails.name}
@@ -276,10 +274,8 @@ const Profile = () => {
             </form>
 
             <SecondaryButton text="Sign Out" onClick={handlesignOut} />
-
           </FormContainer>
         </FlexContainer>
-
       </Container>
     </div>
   );

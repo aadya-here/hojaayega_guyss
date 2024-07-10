@@ -7,8 +7,6 @@ const ProtectedRoutes = () => {
   const { vendorId, isLoading: isVendorLoading } = useVendor();
   const { isAuth, isLoading } = useAuth();
 
-  console.log(vendorId + " is loading");
-
   if (isLoading || isVendorLoading) return "Loading...";
   if (!isAuth || vendorId === null) return <Navigate to="/signin" replace />;
 
