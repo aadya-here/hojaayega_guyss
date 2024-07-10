@@ -14,6 +14,9 @@ import { getUserId } from "../helpers/fetchUser";
 import supabase from "../supabase";
 import SubmitButton from "../components/PrimaryButton";
 import { Input } from "@mui/joy";
+import { useAuth } from "../context/authContext";
+import SecondaryButton from "../components/SecondaryButton";
+import { useNavigate } from "react-router-dom";
 
 const FlexContainer = styled("div")({
   display: "flex",
@@ -80,6 +83,10 @@ const Profile = () => {
     vendor_id: "",
   });
 
+  const { userId, vendorId, isAuth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  console.log(userId, vendorId, isAuth);
+
   const handleEditClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -100,7 +107,7 @@ const Profile = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const userId = await getUserId(); // Wait for userId promise to resolve
+      // const userId = await getUserId(); // Wait for userId promise to resolve
 
       if (userId) {
         const { data, error } = await supabase
@@ -139,7 +146,7 @@ const Profile = () => {
   };
   const handleUpdate = async () => {
     try {
-      const userId = await getUserId();
+      // const userId = await getUserId();
       if (userId) {
         console.log("Updating user details:", userDetails);
         const { data, error } = await supabase
@@ -163,9 +170,29 @@ const Profile = () => {
     fetchUserDetails();
   }, []);
 
+  const handlesignOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        throw error;
+      }
+      // Clear local storage or any other state management values if necessary
+      localStorage.removeItem('vendorId');
+      setAuth(false); // Update isAuth state to false
+      navigate('/home');
+      console.log('User signed out successfully');
+    } catch (error) {
+      console.error('Error signing out:', error.message);
+    }
+  };
+
   const InputField = ({ placeholder, value, disabled, onChange }) => {
     return (
+
+
+
       <div style={{ marginBottom: "16px" }}>
+
         <Input
           placeholder={placeholder}
           variant="outlined"
@@ -179,6 +206,7 @@ const Profile = () => {
 
   return (
     <Container maxWidth="md" className="h-screen">
+
       <FlexContainer>
         <ImageContainer>
           <ProfileImg src={profileImg || noimg} />
@@ -194,6 +222,9 @@ const Profile = () => {
           />
         </ImageContainer>
         <FormContainer>
+          <Typography variant="h5" component="h2" className="!font-bold">
+            Hello {userDetails.name}
+          </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" component="h2" className="!font-bold">
               Your Information
@@ -241,8 +272,12 @@ const Profile = () => {
             />
             {isEditable && <SubmitButton text="Update Profile" onClick={handleUpdate} />}
           </form>
+
+          <SecondaryButton text="Sign Out" onClick={handlesignOut} />
+
         </FormContainer>
       </FlexContainer>
+
     </Container>
   );
 };

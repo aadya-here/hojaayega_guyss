@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useVendor } from '../context/vendorContext'; // Assuming this is the correct import path
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import supabase from '../supabase';
 import CommonAuth from '../components/CommonAuth';
 import SubmitButton from '../components/PrimaryButton';
 import { Input } from '@mui/joy';
+import { useAuth } from '../context/authContext';
 
 const VendorLoginPage = () => {
     const { setVendorId } = useVendor();
+    const { setAuth } = useAuth();
     const [vendorList, setVendorList] = useState([]);
     const [vendorCode, setVendorCode] = useState('');
     const [selectedVendor, setSelectedVendor] = useState('');
@@ -41,10 +43,8 @@ const VendorLoginPage = () => {
     }, []);
 
     const handleVendorSelect = (event) => {
-        console.log(event.target.value);
         setSelectedVendor(event.target.value);
     };
-
     const handleVendorLogin = async (e) => {
         e.preventDefault();
         if (!selectedVendor || !vendorCode) {
@@ -65,18 +65,22 @@ const VendorLoginPage = () => {
                 return;
             }
 
-            if (data && data.vendor_code === parseInt(vendorCode, 10)) {
-                // alert('Vendor login successful.');
-                setVendorId(selectedVendor); // Set vendorId in context
+            if (data && data.vendor_code === parseInt(vendorCode)) {
+                console.log(data)
+                setVendorId(selectedVendor);
+                setAuth(true); // Use setAuth instead of setIsAuth
                 navigate('/projects');
             } else {
                 alert('Invalid vendor code.');
+                console.log(vendorCode);
             }
         } catch (error) {
             console.error('Error during vendor login:', error);
             alert('An unexpected error occurred during vendor login.');
         }
     };
+
+
 
     return (
         <CommonAuth>
@@ -98,7 +102,7 @@ const VendorLoginPage = () => {
                     </Select>
                 </FormControl>
 
-                <br></br>
+                <br />
 
                 <Input
                     placeholder="Vendor Code"

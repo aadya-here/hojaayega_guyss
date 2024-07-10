@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import supabase from "../supabase"; // Make sure to import your supabase client
 import CommonAuth from "../components/CommonAuth";
 import SubmitButton from "../components/PrimaryButton";
+import { useAuth } from "../context/authContext";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const SignInPage = () => {
       alert("Error logging in: " + error.message);
     } else {
       navigate("/vendor-login");
+      setAuth(true);
     }
   };
 
