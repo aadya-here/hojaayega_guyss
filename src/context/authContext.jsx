@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
-      {isAuth && !!vendorId && <BottomNavbar />}
+      {isAuth && vendorId && <BottomNavbar />}
     </AuthContext.Provider>
   );
 };

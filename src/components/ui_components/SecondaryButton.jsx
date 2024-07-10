@@ -10,8 +10,8 @@ const SecondaryButton = ({ onClick, text }) => {
                 // Use outlined variant
                 sx={{
                     borderRadius: 5,
-                    backgroundColor: '#e3effb', // Add soft background color
-                    borderColor: '#c7dff7' // Soft border color
+                    backgroundColor: '#c1dbf7', // Add soft background color
+                    borderColor: '#b2d3f7' // Soft border color
                 }}
                 onClick={onClick}
             >

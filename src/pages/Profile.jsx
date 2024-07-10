@@ -205,81 +205,83 @@ const Profile = () => {
   };
 
   return (
-    <Container maxWidth="md" className="h-screen">
+    <div className="bg-blue-50 h-screen w-screen">
+      <Container maxWidth="md" className="h-screen">
 
-      <FlexContainer>
-        <ImageContainer>
-          <ProfileImg src={profileImg || noimg} />
-          <EditButton onClick={handleEditClick}>
-            <EditIcon />
-          </EditButton>
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-            accept="image/*"
-          />
-        </ImageContainer>
-        <FormContainer>
-          <Typography variant="h5" component="h2" className="!font-bold">
-            Hello {userDetails.name}
-          </Typography>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6" component="h2" className="!font-bold">
-              Your Information
+        <FlexContainer>
+          <ImageContainer>
+            <ProfileImg src={profileImg || noimg} />
+            <EditButton onClick={handleEditClick}>
+              <EditIcon />
+            </EditButton>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+          </ImageContainer>
+          <FormContainer>
+            <Typography variant="h5" component="h2" className="!font-bold">
+              Hello {userDetails.name}
             </Typography>
-            <IconButton onClick={() => {
-              if (isEditable) {
-                handleUpdate();
-              } else {
-                setIsEditable(true);
-              }
-            }}>
-              {isEditable ? <SaveIcon /> : <EditIcon />}
-            </IconButton>
-          </div>
-          <form className="w-full">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="h6" component="h2" className="!font-bold">
+                Your Information
+              </Typography>
+              <IconButton onClick={() => {
+                if (isEditable) {
+                  handleUpdate();
+                } else {
+                  setIsEditable(true);
+                }
+              }}>
+                {isEditable ? <SaveIcon /> : <EditIcon />}
+              </IconButton>
+            </div>
+            <form className="w-full">
 
-            <InputField
-              placeholder="Name"
-              value={userDetails.name}
-              disabled={!isEditable}
-              onChange={(value) => handleInputChange("name", value)}
-            />
-            <InputField
-              placeholder="Email"
-              value={userDetails.email}
-              disabled={!isEditable}
-              onChange={(value) => handleInputChange("email", value)}
-            />
-            <InputField
-              placeholder="Phone Number"
-              value={userDetails.mobile}
-              disabled={!isEditable}
-              onChange={(value) => handleInputChange("mobile", value)}
-            />
-            <InputField
-              placeholder="Vendor ID"
-              value={userDetails.vendor_id}
-              disabled={!isEditable}
-              onChange={(value) => handleInputChange("vendor_id", value)}
-            />
-            <InputField
-              placeholder="Gate Pass No"
-              value={userDetails.gatepass}
-              disabled={!isEditable}
-              onChange={(value) => handleInputChange("gatepass", value)}
-            />
-            {isEditable && <SubmitButton text="Update Profile" onClick={handleUpdate} />}
-          </form>
+              <InputField
+                placeholder="Name"
+                value={userDetails.name}
+                disabled={!isEditable}
+                onChange={(value) => handleInputChange("name", value)}
+              />
+              <InputField
+                placeholder="Email"
+                value={userDetails.email}
+                disabled={!isEditable}
+                onChange={(value) => handleInputChange("email", value)}
+              />
+              <InputField
+                placeholder="Phone Number"
+                value={userDetails.mobile}
+                disabled={!isEditable}
+                onChange={(value) => handleInputChange("mobile", value)}
+              />
+              <InputField
+                placeholder="Vendor ID"
+                value={userDetails.vendor_id}
+                disabled={!isEditable}
+                onChange={(value) => handleInputChange("vendor_id", value)}
+              />
+              <InputField
+                placeholder="Gate Pass No"
+                value={userDetails.gatepass}
+                disabled={!isEditable}
+                onChange={(value) => handleInputChange("gatepass", value)}
+              />
+              {/* {isEditable && <SubmitButton text="Update Profile" onClick={handleUpdate} />} */}
+            </form>
 
-          <SecondaryButton text="Sign Out" onClick={handlesignOut} />
+            <SecondaryButton text="Sign Out" onClick={handlesignOut} />
 
-        </FormContainer>
-      </FlexContainer>
+          </FormContainer>
+        </FlexContainer>
 
-    </Container>
+      </Container>
+    </div>
   );
 };
 

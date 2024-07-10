@@ -39,7 +39,7 @@ const Forms = () => {
         <div className='bg-blue-50 pb-20 p-5 min-h-screen'>
             <Title text="Quality & Job Forms" />
             <div className="px-4 flex space-x-4 mx-auto sm:w-4/5 md:w-3/5 lg:w-3/5">
-                <AccordionGroup className=" w-full max-w-full mb-5 flex">
+                <AccordionGroup className="w-4/5 mb-5 flex">
                     <Accordion>
                         <AccordionSummary className="bg-blue-100 p-2 rounded-lg shadow-md text-blue-50">
                             Job Specific Checklist
