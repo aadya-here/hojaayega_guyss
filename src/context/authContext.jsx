@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
       } = await supabase.auth.getSession();
 
       if (error) {
-        console.log("fuck");
         throw new Error("Error getting session:", error);
       }
 
