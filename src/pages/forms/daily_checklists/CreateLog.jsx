@@ -25,6 +25,7 @@ const CreateLog = () => {
     const [logId, setLogId] = useState(null);
     const [photoUrl, setPhotoUrl] = useState(null);
     const [showAddPhoto, setShowAddPhoto] = useState(false);
+    const [jobDescription, setJobDescription] = useState('');
 
     const addLog = async () => {
         try {
@@ -37,7 +38,8 @@ const CreateLog = () => {
                     valid_till: validTill.toISOString(),
                     num_workers: parseInt(numberOfWorkers),
                     created_by: userId,
-                    created_on: new Date()
+                    created_on: new Date(),
+                    job_desc: jobDescription,
                 }
             ]).select();
 
@@ -85,6 +87,7 @@ const CreateLog = () => {
         <div className="w-full min-h-screen bg-blue-50 p-8">
             <div className='items-center justify-center flex flex-col'>
                 <Title text="Create Log" />
+                <InputField icon={locationIcon} placeholder="Job Description" handleInputChange={setJobDescription} />
                 <InputField icon={locationIcon} placeholder="Work Permit" handleInputChange={setWorkPermit} />
                 <InputField icon={locationIcon} placeholder="SOP Number" handleInputChange={setSopNumber} />
                 <InputField icon={locationIcon} placeholder="Number of Workers" handleInputChange={setNumberOfWorkers} />
