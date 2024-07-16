@@ -248,7 +248,7 @@ const BrickMasonryQCForm = () => {
             <Title text="Brick Masonry QC Checklist" />
 
             <div className='items-center justify-center flex flex-col'>
-                <ProjectSelectionMenu handleProjectChange={handleProjectChange} />
+                {/* <ProjectSelectionMenu handleProjectChange={handleProjectChange} /> */}
 
                 {InputFieldParams.map((params, index) => (
                     <InputField

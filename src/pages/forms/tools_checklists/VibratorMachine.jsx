@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native'; // Assuming this is used in a React Native environment
 import supabase from '../../../supabase'; // Make sure to set up Supabase client
 
 import InputField from '../../../components/ui_components/InputField'; // Assuming you have this component defined
@@ -35,14 +34,14 @@ const VibratorMachine = () => {
     const [remarks, setRemarks] = useState('');
 
     const { vendorId } = useVendor();
-    const [logID, setLogID] = useState < number | null > (null);
+    const [logID, setLogID] = useState(null);
 
     const form_num = 4;
 
     const handleSubmit = async () => {
         try {
             if (!projectID) {
-                Alert.alert('Error', 'Project ID is required.');
+                alert('Error', 'Project ID is required.');
                 return null;
             }
 
@@ -77,13 +76,13 @@ const VibratorMachine = () => {
 
             if (error) {
                 console.error('Database error:', error);
-                Alert.alert('Error', 'A database error occurred. Please try again.');
+                alert('Error', 'A database error occurred. Please try again.');
                 return null;
             }
 
             if (!data || !data[0]) {
                 console.error('No data returned from database.');
-                Alert.alert('Error', 'No data returned from database.');
+                alert('Error', 'No data returned from database.');
                 return null;
             }
 
@@ -92,7 +91,7 @@ const VibratorMachine = () => {
 
         } catch (error) {
             console.error('Error creating project:', error);
-            Alert.alert('Error', 'An unexpected error occurred while creating the project.');
+            alert('Error', 'An unexpected error occurred while creating the project.');
             return null;
         }
     };
@@ -101,7 +100,7 @@ const VibratorMachine = () => {
         const formLogData = await addFormLog(handleSubmit, projectID, vendorId, form_num);
 
         if (formLogData) {
-            Alert.alert('Success', 'Form log created successfully.');
+            alert('Success', 'Form log created successfully.');
             console.log("Form log created successfully:", formLogData);
         }
     };
@@ -116,7 +115,7 @@ const VibratorMachine = () => {
             handleInputChange: setIdentificationNo,
         },
         {
-            placeholder: 'Project ID *',
+            placeholder: 'Project ID',
             handleInputChange: setProjectID,
         },
         {

@@ -137,7 +137,7 @@ const PaintingQCForm = () => {
         },
         {
             icon: locationIcon,
-            placeholder: 'Supervisor Pno',
+            placeholder: 'Supervisor Gate Pass',
             handleInputChange: setSupervisorPno,
         },
     ];
