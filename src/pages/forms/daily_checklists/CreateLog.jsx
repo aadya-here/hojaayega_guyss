@@ -10,6 +10,7 @@ import SecondaryButton from "../../../components/ui_components/SecondaryButton";
 import AddPhoto from "../../../components/AddPhoto";
 import { Divider } from "@mui/material";
 import { useAuth } from "../../../context/authContext";
+// import { newDate } from "react-datepicker/dist/date_utils";
 
 const CreateLog = () => {
     const { vendorId } = useVendor();
@@ -26,6 +27,7 @@ const CreateLog = () => {
     const [photoUrl, setPhotoUrl] = useState(null);
     const [showAddPhoto, setShowAddPhoto] = useState(false);
     const [jobDescription, setJobDescription] = useState('');
+    const [remarks, setRemarks] = useState('');
 
     const addLog = async () => {
         try {
@@ -34,12 +36,13 @@ const CreateLog = () => {
                     vendor_id: vendorId,
                     project_id: projectId,
                     work_permit: workPermit,
-                    valid_from: validFrom.toISOString(),
-                    valid_till: validTill.toISOString(),
+                    valid_from: new Date(),
+                    valid_till: new Date(),
                     num_workers: parseInt(numberOfWorkers),
                     created_by: userId,
                     created_on: new Date(),
                     job_desc: jobDescription,
+                    remarks: remarks,
                 }
             ]).select();
 
@@ -89,10 +92,12 @@ const CreateLog = () => {
                 <Title text="Create Log" />
                 <InputField icon={locationIcon} placeholder="Job Description" handleInputChange={setJobDescription} />
                 <InputField icon={locationIcon} placeholder="Work Permit" handleInputChange={setWorkPermit} />
-                <InputField icon={locationIcon} placeholder="SOP Number" handleInputChange={setSopNumber} />
+                {/* <InputField icon={locationIcon} placeholder="SOP Number" handleInputChange={setSopNumber} /> */}
                 <InputField icon={locationIcon} placeholder="Number of Workers" handleInputChange={setNumberOfWorkers} />
-                <InputField icon={locationIcon} placeholder="Valid From" handleInputChange={setValidFrom} type="date" />
-                <InputField icon={locationIcon} placeholder="Valid Till" handleInputChange={setValidTill} type="date" />
+                <InputField icon={locationIcon} placeholder="Remarks" handleInputChange={setRemarks} />
+
+                {/* <InputField icon={locationIcon} placeholder="Valid From" handleInputChange={setValidFrom} type="date" />
+                <InputField icon={locationIcon} placeholder="Valid Till" handleInputChange={setValidTill} type="date" /> */}
             </div>
             <SubmitButton text="Add Log" handleSubmit={handleSubmit} />
 
