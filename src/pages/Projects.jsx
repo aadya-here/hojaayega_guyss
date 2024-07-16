@@ -21,6 +21,7 @@ const ProjectsPage = () => {
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [vendorName, setVendorName] = useState('');
     const isLargeScreen = useMediaQuery('(min-width:600px)');
+    const [vendorCode, setVendorCode] = useState('');
 
     const navigate = useNavigate();
 
@@ -67,7 +68,7 @@ const ProjectsPage = () => {
         try {
             const { data: vendorData, error: vendorError } = await supabase
                 .from('vendors')
-                .select('vendor_name')
+                .select('*')
                 .eq('vendor_id', vendorId)
                 .single();
 
@@ -75,6 +76,7 @@ const ProjectsPage = () => {
                 console.error('Error fetching vendor data:', vendorError.message);
             } else {
                 setVendorName(vendorData.vendor_name);
+                setVendorCode(vendorData.vendor_code);
             }
         } catch (error) {
             console.error('Error in fetchVendorName:', error.message);
@@ -97,7 +99,7 @@ const ProjectsPage = () => {
                 }}
             >
                 <Title text="Projects" />
-                <Subheading text={`${vendorId} : ${vendorName}`} />
+                <Subheading text={`${vendorCode} : ${vendorName}`} />
                 <Tabs
                     aria-label="Projects"
                     value={index}
