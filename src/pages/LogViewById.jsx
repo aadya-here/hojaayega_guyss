@@ -4,7 +4,7 @@ import { useVendor } from '../context/vendorContext'; // Assuming this custom ho
 import AccordionGroup from '@mui/joy/AccordionGroup';
 import Typography from '@mui/joy/Typography';
 import supabase from '../supabase'; // Assuming supabase is configured
-import CustomAccordion from '../components/ui_components/CustomAccordian';
+import CustomAccordion from '../components/CustomAccordian';
 import TableComponent from '../components/TableComponent';
 import Title from '../components/ui_components/Title';
 import Subheading from '../components/ui_components/Subheading'

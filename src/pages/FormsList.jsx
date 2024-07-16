@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import FormCard from '../components/info_cards/FormCard';
 import Title from '../components/ui_components/Title';
 import supabase from '../supabase';

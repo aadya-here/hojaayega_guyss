@@ -65,7 +65,7 @@ const VendorLoginPage = () => {
         return;
       }
 
-      if (data && data.vendor_code === parseInt(vendorCode)) {
+      if (data && data.vendor_code === vendorCode) {
         console.log(data);
         setVendorId(selectedVendor);
         setAuth(true); // Use setAuth instead of setIsAuth
