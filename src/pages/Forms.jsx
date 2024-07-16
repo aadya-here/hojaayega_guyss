@@ -10,6 +10,12 @@ import PaintingQCForm from './forms/job_specific/Painting';
 import PlasteringQCForm from './forms/job_specific/Plastering';
 import SecondaryButton from '../components/ui_components/SecondaryButton'; // Ensure the correct path
 import Title from '../components/ui_components/Title';
+import FullBodyHarness from './forms/tools_checklists/BodyHarness';
+import ChipperMachine from './forms/tools_checklists/ChipperMachine';
+import PlyCutterMachine from './forms/tools_checklists/PlyCuttingMachine';
+import RodCutterMachine from './forms/tools_checklists/RodCutter';
+import TilesCuttingMachine from './forms/tools_checklists/TilesCuttingMachine';
+import VibratorMachine from './forms/tools_checklists/VibratorMachine';
 
 const Forms = () => {
     const [activeForm, setActiveForm] = useState(null);
@@ -28,6 +34,18 @@ const Forms = () => {
                 return <PaintingQCForm />;
             case 'Plastering':
                 return <PlasteringQCForm />;
+            case 'BodyHarness':
+                return <FullBodyHarness />;
+            case 'ChipperMachine':
+                return <ChipperMachine />;
+            case 'PlyCutterMachine':
+                return <PlyCutterMachine />;
+            case 'RodCutterMachine':
+                return <RodCutterMachine />;
+            case 'TilesCuttingMachine':
+                return <TilesCuttingMachine />;
+            case 'VibratorMachine':
+                return <VibratorMachine />;
             default:
                 return <div className="font-semibold text-center m-10">
                     Select a checklist item to view the form.
@@ -45,16 +63,27 @@ const Forms = () => {
                             Job Specific Checklist
                         </AccordionSummary>
                         <AccordionDetails>
+
                             <SecondaryButton onClick={() => setActiveForm('BrickMasonry')} text=" Brick Masonry QC Form" />
                             <SecondaryButton onClick={() => setActiveForm('MicroConcrete')} text="  Micro Concrete QC Form" />
-
-
                             <SecondaryButton onClick={() => setActiveForm('Mortar')} text="Mortar Plastering QC Form" />
-
-
                             <SecondaryButton onClick={() => setActiveForm('Painting')} text=" Painting QC Form" />
-
                             <SecondaryButton onClick={() => setActiveForm('Plastering')} text="Plastering QC Form" />
+
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary className="bg-blue-100 p-2 rounded-lg shadow-md text-blue-50">
+                            Tools Checklist
+                        </AccordionSummary>
+                        <AccordionDetails>
+
+                            <SecondaryButton onClick={() => setActiveForm('BodyHarness')} text="Full Body Harness Checklist" />
+                            <SecondaryButton onClick={() => setActiveForm('ChipperMachine')} text="Chipper Machine Checklist" />
+                            <SecondaryButton onClick={() => setActiveForm('PlyCutterMachine')} text="Ply Cutter Machine Checklist" />
+                            <SecondaryButton onClick={() => setActiveForm('RodCutterMachine')} text="Rod Cutter Machine Checklist" />
+                            <SecondaryButton onClick={() => setActiveForm('TilesCuttingMachine')} text="Tiles Cutting Machine Checklist" />
+                            <SecondaryButton onClick={() => setActiveForm('VibratorMachine')} text="Vibrator Machine Checklist" />
 
                         </AccordionDetails>
                     </Accordion>

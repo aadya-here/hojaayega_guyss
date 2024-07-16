@@ -35,7 +35,7 @@ const FormsList = () => {
                 console.error('Error fetching data:', error);
             } else {
                 setForms(data);
-                console.log(data[0].form_log_id);
+                // console.log(data[0].form_log_id);
             }
         };
 
@@ -45,14 +45,11 @@ const FormsList = () => {
     return (
         <div className="w-full min-h-screen bg-blue-50 p-5 flex flex-col items-center">
             <Title text="Filled Forms" />
-            <Button variant="outlined">Outlined</Button> {/* filters if possible */}
-            <br />
-            <Divider sx={{ width: '50%', margin: 'auto' }} />
-            <br />
+
             <div className="my-0 p-0 flex flex-col space-y-3 w-full sm:w-4/5 md:w-4/5 lg:w-full">
                 {forms.map((form) => (
                     <FormCard
-                        key={form.form_id}
+                        key={form.form_log_id}
                         projectName={form.projects?.project_title}
                         date={new Date(form.created_on).toLocaleDateString()}
                         formStatus={form.approval_status}

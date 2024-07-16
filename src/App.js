@@ -42,7 +42,7 @@ const protectedRoutes = [
   { path: "/projects", element: <Projects /> },
   { path: "/projects/:projectId", element: <ProjectView /> },
   { path: "/forms", element: <Forms /> },
-  { path: "/forms/view", element: <FormsList /> },
+  { path: "/forms-view", element: <FormsList /> },
   {
     path: "/forms-view/:formName/:formId/:formLogId",
     element: <FormViewById />,
