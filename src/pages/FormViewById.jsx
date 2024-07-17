@@ -192,8 +192,6 @@ function FormsView() {
                 {approvalData && (
                     <div className="py-5 pb-10">
                         <Subheading text="Approval Details" />
-
-                        {/* Use TableComponent for Approval Details */}
                         <TableComponent data={approvalData} />
                     </div>
                 )}
